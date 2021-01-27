@@ -1,0 +1,101 @@
+
+.containerLoginForm {
+    $fontSize: 16px;
+
+    background-color: var(--background-color-loginForm);
+    position: relative;
+    width: 24%;
+    .containerForm {
+        position: absolute;
+        left: -300px;
+        top: 114px;
+        border: 2px solid black;
+        border-radius: 9px;
+        height: 424px;
+        width: 344px;
+        background-color: var(--background-color-loginForm);
+        border: none;
+        form {
+            padding: 0 69px 0 20px;
+            flex-direction: column;
+            display: flex;
+
+            justify-content: flex-end;
+
+            .input {
+                border-radius: 9px;
+                border: 1px solid var(--color-border);
+                height: 36px;
+                width: 100%;
+                box-sizing: border-box;
+                margin: 36px 0 35px 0;
+                &:focus {
+                    font-size: $fontSize;
+                    color: var(--color-text);
+                    font-family: 'Rubik';
+                    // padding-left: 11px    
+                }
+                &:blur {
+                    font-size: $fontSize;
+                    color: var(--color-text);
+                    font-family: 'Rubik';
+                    // padding-left: 11px    
+                }
+
+                &:focus::-webkit-input-placeholder {
+                    font-size: $fontSize;
+                    color: var(--color-text);
+                    color: red;
+                    font-family: 'Rubik';
+                    padding-left: 11px    
+                }
+            }
+            input::placeholder {
+                font-size: $fontSize;
+                color: var(--color-text);
+                font-family: 'Rubik';
+                padding-left: 11px
+            }
+
+            // input::placeholder {
+            //     font-size: $fontSize;
+            //     color: var(--color-text);
+            //     font-family: 'Rubik';
+            //     padding-left: 11px
+            // }
+
+            .containerButton {
+                display: flex;
+                justify-content: flex-end;
+                width: 100%;
+                margin: 36px 0 0 0;
+                .button {
+                    width: 109px;
+                    height: 36px;
+                    background: var(--background-color-button);
+                    border: none;
+                    border-radius: 9px;
+                    color: var(--background-color-loginForm);
+                    font-size: $fontSize;
+                    font-family: 'Source Sans Pro';
+                    cursor: pointer;
+                }
+            }
+        }
+        .containerLink {
+            padding: 97px 0 0 15px;
+        }
+    }
+    .containerEmail {
+        height: 100%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+    }
+    a {
+        text-decoration: none;
+        color: var(--color-text);
+        font-family: 'Rubik'; 
+        margin: 0 60px 10px 0;
+    }
+}

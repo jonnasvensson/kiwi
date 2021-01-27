@@ -1,0 +1,15 @@
+@import 'colors.css';
+@import 'fonts.css';
+
+// Source Sans Pro regular 400 and 600 | Rubik regular 400 and 300 italic
+// @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;1,300&family=Source+Sans+Pro:wght@400;600&display=swap');
+
+// font-family: 'Rubik', sans-serif;
+// font-family: 'Source Sans Pro', sans-serif;
+
+.App {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+}
+
