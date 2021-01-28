@@ -1,5 +1,4 @@
 import React from 'react';
-import '../styles/Login.scss'
 import LoginForm from '../components/LoginForm'
 import img from '../assets/book.jpg'
 

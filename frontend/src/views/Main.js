@@ -1,7 +1,6 @@
 import React from 'react';
 import img from '../assets/book.jpg'
 import MiddleMain from '../components/MiddleMain'
-import '../styles/Main.scss'
 
 
 export default function Main () {

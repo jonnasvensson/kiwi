@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
+
 
 export default function Register () {
+
     return (
-        <h3>Register</h3>
+        <>
+            <h3>Register</h3>   
+        </>
     )
 }
