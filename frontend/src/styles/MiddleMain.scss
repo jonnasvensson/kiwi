@@ -6,27 +6,25 @@
     position: relative;
     .container {
         position: absolute;
+        border: solid black;
         left: 120px;
         top: 112px;
-        border: solid orange;
         box-sizing: border-box;
         width: 100%;
-        height: 80vh;
+        min-height: 80vh;
         background: var(--background-color-aside);
-        padding: 23px 23px 0 23px;    
+        padding: 23px; 
         border-radius: 9px;
     }
 }
     .topContainer {
         width: 100%;
-        border: solid black;
         margin-bottom: 61px
     }
     .usernameInfo {
-        border: solid orange;
         display: flex;
-        justify-content: space-between;
         align-items: center;
+        justify-content: space-between;
         margin-bottom: 80px;
 
         .username {
@@ -48,14 +46,13 @@
         }
     }
     .contentGroup {
-        border: solid black;
         margin: 0 20px;
 
     }
 
     .bottomContainer {
         width: 100%;
-        border: solid orange;
+        height: 100%;
     }
 
 
@@ -73,7 +70,7 @@ p {
 
 .containerLowerInfo {
     width: 100%;
-    height: 200px;
+    height: 100px;
     background-color: grey;
     border-radius: 9px;
     margin-top: 41px;

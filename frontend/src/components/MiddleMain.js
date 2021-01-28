@@ -10,7 +10,7 @@ export default function MiddleMain() {
                 <div className="container">
                     <section className="topContainer">
                         <div className="usernameInfo">
-                            <p className="username">Hej Lindis.</p>
+                            <p className="username">Hej lindis.</p>
                             <button className="button">ändra profil.</button>
                         </div>
                         <div className="contentGroup">

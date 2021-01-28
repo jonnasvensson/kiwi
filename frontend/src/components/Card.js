@@ -9,17 +9,19 @@ export default function () {
                 <div className="group">
                     <p>medlemmar.</p>
                     <p>2.</p>
-                    <div className="containerButton">
-                        <button>visa medlemmar.</button>
-                    </div>
                 </div>
-                <div>
+                <div className="line"></div>
+                <div className="containerButton">
+                    <button className="button">visa medlemmar.</button>
+                </div>
+                <div className="group">
                     <p>kategori.</p>
                     <p>personlig utveckling.</p>
                 </div>
+                <div className="line"></div>
             </div>
-            <div>
-                <button>gå med.</button>
+            <div className="containerButton">
+                <button className="button">gå med.</button>
             </div>
         </div>
     )
