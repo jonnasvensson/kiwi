@@ -1,18 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Link, useHistory } from "react-router-dom";
 import '../styles/LoginForm.scss'
+import {UserContext} from '../UserContext';
+import axios from 'axios';
+import { ThemeConsumer } from 'styled-components';
+
+
 
 export default function LoginForm() {
     const [input, setInput] = useState({
         username: "",
         password: ""
     });
-    const [user, setUser] = useState({
-        username: "", 
-        password: ""
-    })
+    const { user, setUser } = useContext(UserContext);
+    const [allUsers, setAllUSers] = useState();
     const history = useHistory();
 
+    const postUser = () => {
+        let user = {
+            username: input.username,
+            password: input.password
+        }
+        axios
+            .post('http://localhost:5000/login', user)
+            .then((resp) => {
+                console.log(resp);
+                // setUser(resp.data)
+            })
+            .catch(error => {
+                console.error(error);
+            })
+            console.log(user);
+    }
     const handleChange = (e) => {
         const value = e.target.value;
         setInput({
@@ -20,18 +39,15 @@ export default function LoginForm() {
             [e.target.name]: value
         });
     }
+    console.log(user);
 
     const handleSubmit = (e) => {
         e.preventDefault();
         if (input.username && input.password) {
             history.push('/main');
         }
-        setUser({
-            username: input.username,
-            password: input.password
-        });
+        postUser();
     }
-
     return (
         <>
             <div className="containerLoginForm">

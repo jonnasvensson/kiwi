@@ -16,8 +16,41 @@ app.get('/bookclubs', async (req, res) => {
     !data ? res.status(500).end() : res.status(200).send(data);
 });
 
+app.get('/users', async (req, res) => {
+    const data = await MONGODB.getUsers();
+    !data ? res.status(500).end() : res.status(200).send(data);
+});
+
+app.post('/login', async (req, res) => {
+    let user = req.body;
+    console.log(user);
+    if (!user.username.length && !user.password.length) {
+        res.status(400).end('Missing content');
+    }
+    const data = await MONGODB.postUser(user);
+    if (data.username === user.username) {
+        if (data.password === user.password) {
+            res.status(201).send({ _id: data._id })
+        } else {
+            res.status(400).end('Wrong password');
+        }
+    } else if (data.username !== user.username) {
+        console.log('wrong username');
+        res.status(400).end('Wrong username');
+    }
+});
 
 app.listen(apiPort, () => console.log(`Server running on port ${apiPort}`))
+
+
+
+
+
+
+
+
+
+
 
 
 

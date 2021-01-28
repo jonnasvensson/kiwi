@@ -26,4 +26,27 @@ async function getBookClubs() {
   }
 }
 
+async function postUser(user) {
+  try {
+    const result = await db
+    .collection('users')
+    .findOne({ username: user.username })
+    return result;
+  } catch {
+      throw error;
+  }
+}
+
+// async function postUser() {
+//   try {
+//     const result = await db
+//     .collection('users')
+//     .findOne({_id: ObjectId(_id)});
+//     return result;
+//   } catch {
+//     throw error;
+//   }
+// }
+
 module.exports.getBookClubs = getBookClubs;
+module.exports.postUser = postUser;

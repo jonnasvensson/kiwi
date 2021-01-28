@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import img from '../assets/book.jpg'
 import MiddleMain from '../components/MiddleMain'
+import {UserContext} from '../UserContext';
 
 
 export default function Main () {
+    const { user, setUser } = useContext(UserContext);
     return (
         <>
             <MiddleMain />
