@@ -1,13 +1,27 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import img from '../assets/book.jpg'
 import MiddleMain from '../components/MiddleMain'
-import {UserContext} from '../UserContext';
+import { UserIdContext } from '../UserContext';
+import { Redirect } from 'react-router-dom';
+
+// styling ligger i App.scss
+
 
 
 export default function Main () {
-    const { user, setUser } = useContext(UserContext);
+    const { userId, setUserId } = useContext(UserIdContext);
+    
+    useEffect(() => {
+        getItem();
+    })
+    const getItem = () => {
+        setUserId(localStorage.getItem('id'))
+    }
     return (
         <>
+            {
+                !userId && <Redirect to="/" />
+            }
             <MiddleMain />
             <div className="containerImgMain">
                 <div className="imgWrapper">

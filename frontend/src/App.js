@@ -7,11 +7,12 @@ import Login from './views/Login'
 import Register from './views/Register'
 import Main from './views/Main'
 import Aside from './components/Aside'
-import {UserContext} from './UserContext';
+import {UserContext, UserIdContext} from './UserContext';
 
 
 
 function App() {
+  const [userId, setUserId] = useState(null);
   const [user, setUser] = useState(null);
 
   return (
@@ -20,11 +21,13 @@ function App() {
         <Aside />
           
         {/* kan /main göras till att bli username i URL */}
-        <UserContext.Provider value={{user, setUser}} >
+        <UserIdContext.Provider value={{userId, setUserId}} >
           <Route exact path="/" component={Login} />
-          <Route path="/main" component={Main} /> 
+          <UserContext.Provider value={{user, setUser}}>
+            <Route path="/main" component={Main} /> 
+          </UserContext.Provider>
           <Route path="/registrera" component={Register} />
-        </UserContext.Provider>
+        </UserIdContext.Provider>
       </Router>
     </div>
   );

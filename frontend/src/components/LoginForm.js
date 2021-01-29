@@ -1,9 +1,8 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Link, useHistory } from "react-router-dom";
+import React, { useState, useContext } from 'react';
+import { Link, Redirect, useHistory } from "react-router-dom";
 import '../styles/LoginForm.scss'
-import {UserContext} from '../UserContext';
+import { UserIdContext } from '../UserContext';
 import axios from 'axios';
-import { ThemeConsumer } from 'styled-components';
 
 
 
@@ -12,26 +11,25 @@ export default function LoginForm() {
         username: "",
         password: ""
     });
-    const { user, setUser } = useContext(UserContext);
+    const { userId, setUserId } = useContext( UserIdContext );
     const [allUsers, setAllUSers] = useState();
     const history = useHistory();
-
-    const postUser = () => {
+    
+     const  postUser = async () => {
         let user = {
             username: input.username,
             password: input.password
         }
-        axios
-            .post('http://localhost:5000/login', user)
-            .then((resp) => {
-                console.log(resp);
-                // setUser(resp.data)
-            })
-            .catch(error => {
-                console.error(error);
-            })
-            console.log(user);
+        try {
+            const response = await axios.post('http://localhost:5000/login', user);
+            setUserId(response.data._id)
+            localStorage.setItem('id', response.data._id);
+
+        } catch (error) {
+            console.error(error);
+        }
     }
+
     const handleChange = (e) => {
         const value = e.target.value;
         setInput({
@@ -39,15 +37,14 @@ export default function LoginForm() {
             [e.target.name]: value
         });
     }
-    console.log(user);
-
-    const handleSubmit = (e) => {
+    const handleSubmit = async  (e) => {
         e.preventDefault();
         if (input.username && input.password) {
-            history.push('/main');
+            postUser();
         }
-        postUser();
     }
+
+
     return (
         <>
             <div className="containerLoginForm">
@@ -84,6 +81,9 @@ export default function LoginForm() {
                 <div className="containerEmail">
                     <Link to="/registrera">taletotell@gmail.com.</Link>
                 </div>
+                {
+                    userId && <Redirect to="/main" />
+                }
             </div>
         </>
     )
