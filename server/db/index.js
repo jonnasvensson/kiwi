@@ -37,16 +37,17 @@ async function postUser(user) {
   }
 }
 
-// async function postUser() {
-//   try {
-//     const result = await db
-//     .collection('users')
-//     .findOne({_id: ObjectId(_id)});
-//     return result;
-//   } catch {
-//     throw error;
-//   }
-// }
+async function getUser(userId) {
+  try {
+    const result = await db
+    .collection('users')
+    .findOne({_id: ObjectId(userId)});
+    return result;
+  } catch {
+    throw error;
+  }
+}
 
 module.exports.getBookClubs = getBookClubs;
 module.exports.postUser = postUser;
+module.exports.getUser = getUser;

@@ -16,8 +16,9 @@ app.get('/bookclubs', async (req, res) => {
     !data ? res.status(500).end() : res.status(200).send(data);
 });
 
-app.get('/users', async (req, res) => {
-    const data = await MONGODB.getUsers();
+app.get('/user/:userId', async (req, res) => {
+    let userId = req.params.userId;
+    const data = await MONGODB.getUser(userId);
     !data ? res.status(500).end() : res.status(200).send(data);
 });
 
