@@ -37,3 +37,21 @@
         }
     }
 }
+
+.containerRegister {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.contiainerMappedArrays {
+    margin: 10px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.mappedArrays {
+    border: 1px solid black;
+    margin: 5px;
+    padding: 5px;
+}
