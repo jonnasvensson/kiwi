@@ -6,9 +6,6 @@ export default function Aside() {
     return (
         <>
             <div className="containerAside">
-                <Link to="/">Logga in</Link>
-                <Link to="/registrera">Registera</Link>
-                <Link to="/main">Main</Link>
             </div>
         </>
     )

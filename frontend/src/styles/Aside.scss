@@ -1,15 +1,9 @@
 
 .containerAside {
-    background-color: var(--background-color-aside);
+    background-color: lightgray;
     display: flex;
     flex-direction: column;
     height: 100%;
-    width: 18%;
-    a {
-        text-decoration: none;
-        color: var(--color-text);
-        font-size: 21px;
-        margin: 30px 0 0 30px;
-    }
+    width: 10%;
 }
 

@@ -1,0 +1,122 @@
+$fontSize: 16px;
+
+.register-container {
+    justify-content: space-between;
+    position: absolute;
+    border: solid black;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+    box-sizing: border-box;
+    width: 80%;
+    min-height: 80vh;
+    background: var(--background-color-aside);
+    padding: 50px;
+    border-radius: 9px;
+
+    .input {
+        border-radius: 9px;
+        border: 1px solid var(--color-border);
+        height: 36px;
+        width: 100%;
+        box-sizing: border-box;
+        margin: 10px 0 10px 0;
+        font-size: $fontSize;
+        color: var(--color-text);
+        font-family: "Rubik";
+        padding-left: 11px;
+        &:focus {
+            font-size: $fontSize;
+            color: var(--color-text);
+            font-family: "Rubik";
+        }
+        &::placeholder {
+            font-size: $fontSize;
+            color: var(--color-text);
+            color: black;
+            font-family: "Rubik";
+        }
+    }
+    .select-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .title {
+            padding-right: 10px;
+        }
+        .select {
+            width: 200px;
+            height: 36px;
+            font-size: $fontSize;
+        }
+    }
+
+    .line {
+        width: 100%;
+        height: 1px;
+        background-color: grey;
+        margin: 30px 0;    
+    }
+
+    .radio-buttons-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 10px 0;
+        .title {
+        }
+        .radio-group {
+            .input {        
+                display: flex;
+                margin-right: 10rem;
+                justify-content: space-between;
+                align-items: center;
+                padding: 8.5px 0;
+            }
+        }
+    }
+
+
+    .mapped-arrays-container {
+        margin: 10px 0;
+        display: flex;
+        .container-title {
+            min-width: 200px;
+            display: flex;
+            margin-right: 10px;
+            .title {
+            }
+        }
+        .mapped-group {
+            display: flex;
+            flex-wrap: wrap;
+            .mappedArrays {
+                margin: 0 5px 10px 5px;
+            }
+        }
+    }
+
+    .button-container {
+        display: flex;
+        justify-content: flex-end;
+        .button {
+            width: 109px;
+            height: 36px;
+            background: var(--background-color-button);
+            border: none;
+            border-radius: 9px;
+            color: var(--background-color-loginForm);
+            font-size: $fontSize;
+            font-family: "Source Sans Pro";
+            cursor: pointer;
+        }
+    }
+    a {
+        display: flex;
+        justify-content: flex-end;
+        text-decoration: none;
+        color: var(--color-text);
+        font-family: 'Rubik'; 
+        margin-top: 10px;
+    }
+}

@@ -2,13 +2,13 @@
     border: solid black;
     border-radius: 9px;
     padding: 19px;
-}
-.title {
-    font-family: 'Source Sans Pro', sans-serif;
-    font-size: 24px;
-    margin-bottom: 19px;
-}
 
+    .title {
+        font-family: 'Source Sans Pro', sans-serif;
+        font-size: 24px;
+        margin-bottom: 19px;
+    }
+}
 .containerInfo {
     .group {
         display: flex;
