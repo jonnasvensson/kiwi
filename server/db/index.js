@@ -26,17 +26,6 @@ async function getBookClubs() {
   }
 }
 
-async function postUser(user) {
-  try {
-    const result = await db
-    .collection('users')
-    .findOne({ username: user.username })
-    return result;
-  } catch {
-      throw error;
-  }
-}
-
 async function getUser(userId) {
   try {
     const result = await db
@@ -48,6 +37,30 @@ async function getUser(userId) {
   }
 }
 
+async function postUser(user) {
+  try {
+    const result = await db
+    .collection('users')
+    .findOne({ username: user.username })
+    return result;
+  } catch {
+      throw error;
+  }
+}
+
+async function register(user) {
+  try {
+    const result = await db
+    .collection('users')
+    .insertOne(user)
+    return result;
+  } catch {
+    throw error;
+  }
+}
+
 module.exports.getBookClubs = getBookClubs;
 module.exports.postUser = postUser;
 module.exports.getUser = getUser;
+module.exports.register = register;
+

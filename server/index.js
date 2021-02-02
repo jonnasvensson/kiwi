@@ -24,7 +24,6 @@ app.get('/user/:userId', async (req, res) => {
 
 app.post('/login', async (req, res) => {
     let user = req.body;
-    console.log(user);
     if (!user.username.length && !user.password.length) {
         res.status(400).end('Missing content');
     }
@@ -40,6 +39,24 @@ app.post('/login', async (req, res) => {
         res.status(400).end('Wrong username');
     }
 });
+
+app.post('/register', async (req, res) => {
+    let user = {
+        username: req.body.username,
+        password: req.body.password,
+        name: req.body.name,
+        gender: req.body.gender,
+        area: req.body.area,
+        age: req.body.age,
+        categories: req.body.categories,
+        meetUpTimes: req.body.meetUpTimes,
+        readLanguages: req.body.readLanguages,
+        speakLanguages: req.body.speakLanguages
+    };
+    const data = await MONGODB.register(user);
+    res.status(200).send(data);
+
+})
 
 app.listen(apiPort, () => console.log(`Server running on port ${apiPort}`))
 
