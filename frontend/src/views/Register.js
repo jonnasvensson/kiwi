@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import '../styles/Register.scss';
-
+import { one, two, three } from './areaAPI'
 
 export default function Register() {
-    const [areas, setAreas] = useState([]);
+    const [allAreas, setAllAreas] = useState([]);
     const [input, setInput] = useState({
         username: '',
         password: '',
@@ -26,18 +26,27 @@ export default function Register() {
 
     const [selectArea, setSelectArea] = useState('');
     const [selectAge, setSelectAge] = useState('');
-
+    const [error, setError] = useState(false);
+    const [errorPassword, setErrorPassword] = useState(false);
 
     useEffect(() => {
-        getAreas();
+        getAreaAPI();
     }, [])
 
-    const getAreas = () => {
-        axios
-            .get('https://catalog.skl.se/rowstore/dataset/8621fe21-0120-407e-a81f-705ef45f76d2')
-            .then(res => {
-                setAreas(res.data.results);
-            })
+    const getAreaAPI = () => {
+        axios.all([
+            axios.get(one), 
+            axios.get(two), 
+            axios.get(three)
+        ])
+        .then(responses => {
+            const responsesOne = responses[0]
+            const responsesTwo = responses[1]
+            const responsesThree = responses[2]
+            setAllAreas([...responsesOne.data.results, ...responsesTwo.data.results, ...responsesThree.data.results])
+        }
+    )
+        .catch(errors => console.error(errors));
     }
 
     const handleChangeInput = (e) => {
@@ -143,13 +152,17 @@ export default function Register() {
     }
 
     const handleSubmit = () => {
-        let isPasswordEqual = false;
-        console.log('click');
-        if (input.password === input.repeatPassword) {
-            isPasswordEqual = true;
-            postAxios();
-        } else {
-            isPasswordEqual = false;
+        if (!input.username) {
+            setError(true)
+            return
+        }
+        if (input.username) {
+            if (input.password === input.repeatPassword) {
+                setErrorPassword(true);
+                postAxios();
+            } else {
+                setErrorPassword(false);
+            }
         }
     }
 
@@ -171,6 +184,11 @@ export default function Register() {
                     value={input.username}
                     onChange={handleChangeInput}
                 />
+                <div className="error">
+                    {
+                        error && <div className="title">börja med ett användarnamn</div>
+                    }
+                </div>
                 <input
                     className="input"
                     type="password"
@@ -179,6 +197,11 @@ export default function Register() {
                     value={input.password}
                     onChange={handleChangeInput}
                 />
+                <div className="error">
+                    {
+                        errorPassword && <div className="title">lösenorden stämmer inte överrens</div>
+                    }
+                </div>
                 <input
                     className="input"
                     type="password"
@@ -187,7 +210,11 @@ export default function Register() {
                     value={input.repeatPassword}
                     onChange={handleChangeInput}
                 />
-
+                <div className="error">
+                    {
+                        errorPassword && <div className="title">lösenorden stämmer inte överrens</div>
+                    }
+                </div>
                 <input
                     className="input"
                     type="text"
@@ -201,7 +228,7 @@ export default function Register() {
                     <p className="title">Kommun</p>
                     <select className="select" value={selectArea} onChange={handleSelectArea} >
                         {
-                            areas.map((area) => (
+                            allAreas.map((area) => (
                                 <option
                                     name={area.kommun}
                                     key={area.kommunkod}
