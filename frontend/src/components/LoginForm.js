@@ -3,6 +3,7 @@ import { Link, Redirect, useHistory } from "react-router-dom";
 import '../styles/LoginForm.scss'
 import { UserIdContext } from '../UserContext';
 import axios from 'axios';
+import { login } from '../assets/axiosURLs'
 
 
 
@@ -21,7 +22,7 @@ export default function LoginForm() {
             password: input.password
         }
         try {
-            const response = await axios.post('http://localhost:5000/login', user);
+            const response = await axios.post(login, user);
             setUserId(response.data._id)
             localStorage.setItem('id', response.data._id);
 
@@ -55,6 +56,7 @@ export default function LoginForm() {
                             placeholder="användarnamn"
                             type="text"
                             value={input.username}
+                            required
                             name="username"
                             onChange={handleChange}
                         />

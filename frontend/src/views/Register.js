@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import '../styles/Register.scss';
-import { one, two, three } from './areaAPI'
+import { areaOne, areaTwo, areaThree } from '../assets/axiosURLs'
 
 export default function Register() {
     const [allAreas, setAllAreas] = useState([]);
@@ -35,9 +35,9 @@ export default function Register() {
 
     const getAreaAPI = () => {
         axios.all([
-            axios.get(one), 
-            axios.get(two), 
-            axios.get(three)
+            axios.get(areaOne), 
+            axios.get(areaTwo), 
+            axios.get(areaThree)
         ])
         .then(responses => {
             const responsesOne = responses[0]
@@ -157,6 +157,10 @@ export default function Register() {
             return
         }
         if (input.username) {
+            if (!input.password) {
+                setErrorPassword(true);
+                return
+            }
             if (input.password === input.repeatPassword) {
                 setErrorPassword(true);
                 postAxios();

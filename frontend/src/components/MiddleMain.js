@@ -3,6 +3,7 @@ import '../styles/MiddleMain.scss'
 import Card from '../components/Card'
 import { UserContext, UserIdContext } from '../UserContext';
 import axios from 'axios';
+import { me } from '../assets/axiosURLs'
 
 
 export default function MiddleMain() {
@@ -19,7 +20,7 @@ export default function MiddleMain() {
 
     const getUser = () => {
         axios
-            .get(`http://localhost:5000/user/${userId}`)
+            .get(`${me}${userId}` )
             .then(resp => {
                 setUser(resp.data)
             })
