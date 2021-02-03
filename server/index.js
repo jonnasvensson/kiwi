@@ -16,6 +16,15 @@ app.get('/bookclubs', async (req, res) => {
     !data ? res.status(500).end() : res.status(200).send(data);
 });
 
+app.post('/bookclubs', async (req, res) => {
+    let bookClub = {
+        name: req.body.name,
+        category: req.body.category
+    };
+    const data = await MONGODB.createBookClub(bookClub);
+    !data ? res.status(500).send() : res.status(201).send(data);
+})
+
 app.get('/user/:userId', async (req, res) => {
     let userId = req.params.userId;
     const data = await MONGODB.getUser(userId);
@@ -54,7 +63,7 @@ app.post('/register', async (req, res) => {
         speakLanguages: req.body.speakLanguages
     };
     const data = await MONGODB.register(user);
-    res.status(200).send(data);
+    !data ? res.status(500).send() : res.status(200).send(data);
 
 })
 

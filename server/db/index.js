@@ -14,6 +14,17 @@ const client = new MongoClient(url, { useUnifiedTopology: true });
 client.connect();
 let db = client.db(dbName);
 
+async function createBookClub (bookClub) {
+  try {
+    const result = await db
+    .collection('bookClubs')
+    .insertOne(bookClub)
+    return result
+  } catch {
+    throw error;
+  }
+}
+
 async function getBookClubs() {
   try {
     const result = await db
@@ -63,4 +74,5 @@ module.exports.getBookClubs = getBookClubs;
 module.exports.postUser = postUser;
 module.exports.getUser = getUser;
 module.exports.register = register;
+module.exports.createBookClub = createBookClub;
 
