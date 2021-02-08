@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import '../styles/Register.scss';
-import { areaOne, areaTwo, areaThree } from '../assets/axiosURLs'
+import { areaOneApi, areaTwoApi, areaThreeApi, registerUserApi, allUsersApi, bookClubsApi } from '../assets/axiosURLs'
 
 export default function Register() {
     const [allAreas, setAllAreas] = useState([]);
+    const [allUsers, setAllUsers] = useState([]);
     const [input, setInput] = useState({
         username: '',
         password: '',
@@ -28,25 +29,104 @@ export default function Register() {
     const [selectAge, setSelectAge] = useState('');
     const [error, setError] = useState(false);
     const [errorPassword, setErrorPassword] = useState(false);
+    const [errorBookClub, setErrorBookClub] = useState(false);
+    const [usersInBooklub, setUsersInBookClub] = useState([]);
 
+    
     useEffect(() => {
         getAreaAPI();
+        getUsers();
     }, [])
+    
+    const createBookClub = (members) => {
+        let bookClub = {
+            name: 'Bok',
+            category: categories,
+            members: members
+        }
+        if (categories) {
+            
+            axios
+                .post(bookClubsApi, bookClub )
+                .then((res) => {})
+                .catch(error => console.error(error));
+        }
+    }
 
+    const matchingUsers = (mappedUser) => {
+            mappedUser = allUsers.map(user => user)
+            .filter(user => user.area === selectArea)
+            .filter(user => user.gender === input.gender)
+            .filter(user => user.age === selectAge)
+
+            .filter(user => {
+                let categoryMatch = user.categories.find((category, index) => {
+                    return category === categories[index];
+                })
+                if (categoryMatch == null) {
+                    console.log('no match', categoryMatch);
+                    return
+                }
+                if (categoryMatch) {
+                    return user;
+                }
+                return user;
+            })
+            .filter(user => {
+                let meetUpTimeMatch = user.meetUpTimes.find((meetUpTime, index) => {
+                    return meetUpTime === meetUpTimes[index];
+                })
+                if (meetUpTimeMatch) {
+                    return user
+                }
+                return user;
+            })
+            .filter(user => {
+                let readLanguageMatch = user.readLanguages.find((readLanguage, index) => {
+                    return readLanguage === readLanguages[index];
+                })
+                if (readLanguageMatch) {
+                    return user
+                }
+                return user;
+            })
+            .filter(user => {
+                let speakLanguageMatch = user.speakLanguages.find((speakLanguage, index) => {
+                    return speakLanguage === speakLanguages[index];
+                })
+                if (speakLanguageMatch) {
+                    return user
+                }
+                return user;
+            })
+            return mappedUser
+        }
+    
     const getAreaAPI = () => {
         axios.all([
-            axios.get(areaOne), 
-            axios.get(areaTwo), 
-            axios.get(areaThree)
+            axios.get(areaOneApi),
+            axios.get(areaTwoApi),
+            axios.get(areaThreeApi)
         ])
-        .then(responses => {
-            const responsesOne = responses[0]
-            const responsesTwo = responses[1]
-            const responsesThree = responses[2]
-            setAllAreas([...responsesOne.data.results, ...responsesTwo.data.results, ...responsesThree.data.results])
-        }
-    )
-        .catch(errors => console.error(errors));
+            .then(responses => {
+                const responsesOne = responses[0]
+                const responsesTwo = responses[1]
+                const responsesThree = responses[2]
+                setAllAreas([...responsesOne.data.results, ...responsesTwo.data.results, ...responsesThree.data.results])
+            }
+            )
+            .catch(errors => console.error(errors));
+    }
+
+    const getUsers = () => {
+        axios
+            .get(allUsersApi)
+            .then(res => {
+                setAllUsers(res.data)
+            })
+            .catch(err => {
+                console.error(err);
+            })
     }
 
     const handleChangeInput = (e) => {
@@ -83,7 +163,6 @@ export default function Register() {
         if (checked) {
             setCategories([...categories, value]);
         } else {
-            // nedan gör att om man klickar ur checkbxen så ändras värdet
             let filteredCategories = categories.filter(category => category !== value);
             return setCategories(filteredCategories);
         }
@@ -127,7 +206,8 @@ export default function Register() {
         }
     }
 
-    const postAxios = () => {
+    const postAxiosUser = () => {
+        let usersFromMatching = matchingUsers();
 
         const user = {
             username: input.username,
@@ -142,28 +222,45 @@ export default function Register() {
             speakLanguages: speakLanguages
         }
         axios
-            .post('http://localhost:5000/register', user)
-            .then(res => {
-                console.log(res);
-            })
+            .post(registerUserApi, user)
+            .then((res) => {
+                let newArray = [...usersFromMatching, ...res.data.ops]
+                setUsersInBookClub([...res.data.ops, ...usersFromMatching])
+                if (newArray.length >= 2) {
+                    createBookClub(newArray);
+                    console.log('bokklubb skapad');
+                } else {
+                    console.log('Bokklubb not created');
+                }
+             })
             .catch(err => {
                 console.error(err);
             })
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = async (e) => {
+        e.preventDefault();
         if (!input.username) {
             setError(true)
             return
         }
         if (input.username) {
+            setError(false);
             if (!input.password) {
                 setErrorPassword(true);
                 return
             }
             if (input.password === input.repeatPassword) {
-                setErrorPassword(true);
-                postAxios();
+                setErrorPassword(false);
+                matchingUsers();
+                if (categories.length >= 1) {
+                    postAxiosUser();
+                }
+                if (categories.length === 0) {
+                    setErrorBookClub(true);
+                } else {
+                    setErrorBookClub(false);
+                }
             } else {
                 setErrorPassword(false);
             }
@@ -179,12 +276,13 @@ export default function Register() {
 
     return (
         <>
-            <div className="register-container">
+            <form className="register-container" onSubmit={handleSubmit} >
                 <input
                     className="input"
                     type="text"
                     placeholder="användarnamn"
                     name="username"
+                    required
                     value={input.username}
                     onChange={handleChangeInput}
                 />
@@ -230,7 +328,8 @@ export default function Register() {
 
                 <div className="select-container">
                     <p className="title">Kommun</p>
-                    <select className="select" value={selectArea} onChange={handleSelectArea} >
+                    <select className="select" value={selectArea} required onChange={handleSelectArea} >
+                        <option default></option>
                         {
                             allAreas.map((area) => (
                                 <option
@@ -266,6 +365,7 @@ export default function Register() {
                 <div className="select-container">
                     <p className="title">Ålder</p>
                     <select className="select" value={selectAge} onChange={handleSelectAge}>
+                        <option default ></option>
                         {
                             agesToMap.map(age => (
                                 <option
@@ -281,7 +381,12 @@ export default function Register() {
                 {/* behöver jag id på category, languagesToMap, age? */}
                 <div className="mapped-arrays-container">
                     <div className="container-title">
-                        <p className="title">Kategorier</p>
+                        <p className="title">Kategori</p>
+                        <div className="error">
+                    {
+                        errorBookClub && <div className="title">välj en kategori</div>
+                    }
+                </div>
                     </div>
                     <div className="mapped-group">
                         {
@@ -291,7 +396,8 @@ export default function Register() {
                                         type="checkbox"
                                         value={category}
                                         name={category}
-                                        onChange={handleCategories} />
+                                        onChange={handleCategories}
+                                         />
                                     <label>{category}</label>
                                 </div>
                             ))
@@ -362,10 +468,10 @@ export default function Register() {
                 </div>
 
                 <div className="button-container">
-                    <button className="button" onClick={handleSubmit}>klar.</button>
+                    <input className="button" type="submit" onClick={handleSubmit}/>
                 </div>
                 <Link to="/">Är du redan medlem? Klicka här.</Link>
-            </div>
+            </form>
         </>
     )
 }

@@ -3,52 +3,35 @@
     border-radius: 9px;
     padding: 19px;
 
-    .title {
-        font-family: 'Source Sans Pro', sans-serif;
-        font-size: 24px;
-        margin-bottom: 19px;
-    }
-}
-.containerInfo {
-    .group {
-        display: flex;
-        justify-content: space-between;
-        p:last-child {
-            font-family: "Source Sans Pro";
-            font-weight: 600;
+    .containerInfo {
+        .book-title {
+            font-family: "Source Sans Pro", sans-serif;
+            font-size: 24px;
+            margin-bottom: 19px;
         }
-    }
-    .containerButton {
-        display:flex;
-        justify-content: flex-end;
-        margin: 3px 0 16px 0;
-        .button {
-            width: 103px;
-            height: 18px;
-            background: var(--background-color-button);
-            border: none;
-            border-radius: 6px;
-            color: var(--background-color-loginForm);
-            font-size: 12px;
-            font-family: "Source Sans Pro";
-            cursor: pointer;
+        .group {
+            display: flex;
+            justify-content: space-between;
+            p:last-child {
+                font-family: "Source Sans Pro";
+                font-weight: 600;
+            }
         }
-    }
-}
-
-.containerButton {
-    display:flex;
-    justify-content: flex-end;
-    margin: 65px 0 16px 0;
-    .button {
-        width: 103px;
-        height: 36px;
-        background: var(--background-color-button);
-        border: none;
-        border-radius: 9px;
-        color: var(--background-color-loginForm);
-        font-size: 16px;
-        font-family: "Source Sans Pro";
-        cursor: pointer;
+        .containerButton {
+            display: flex;
+            justify-content: flex-end;
+            margin: 3px 0 16px 0;
+            .button {
+                width: 103px;
+                height: 18px;
+                background: var(--background-color-button);
+                border: none;
+                border-radius: 6px;
+                color: var(--background-color-loginForm);
+                font-size: 12px;
+                font-family: "Source Sans Pro";
+                cursor: pointer;
+            }
+        }
     }
 }

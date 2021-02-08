@@ -19,10 +19,16 @@ app.get('/bookclubs', async (req, res) => {
 app.post('/bookclubs', async (req, res) => {
     let bookClub = {
         name: req.body.name,
-        category: req.body.category
+        category: req.body.category,
+        members: req.body.members
     };
     const data = await MONGODB.createBookClub(bookClub);
     !data ? res.status(500).send() : res.status(201).send(data);
+})
+
+app.get('/users', async (req, res) => {
+    const data = await MONGODB.getAllUsers();
+    !data ? res.status(500).end() : res.status(200).send(data);
 })
 
 app.get('/user/:userId', async (req, res) => {
@@ -30,6 +36,7 @@ app.get('/user/:userId', async (req, res) => {
     const data = await MONGODB.getUser(userId);
     !data ? res.status(500).end() : res.status(200).send(data);
 });
+
 
 app.post('/login', async (req, res) => {
     let user = req.body;

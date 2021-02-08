@@ -48,6 +48,18 @@ async function getUser(userId) {
   }
 }
 
+async function getAllUsers() {
+  try {
+    const result = await db
+    .collection('users')
+    .find({})
+    .toArray();
+    return result;
+  } catch {
+    throw error;
+  }
+}
+
 async function postUser(user) {
   try {
     const result = await db
@@ -70,9 +82,10 @@ async function register(user) {
   }
 }
 
-module.exports.getBookClubs = getBookClubs;
-module.exports.postUser = postUser;
-module.exports.getUser = getUser;
-module.exports.register = register;
 module.exports.createBookClub = createBookClub;
+module.exports.getAllUsers = getAllUsers;
+module.exports.getBookClubs = getBookClubs;
+module.exports.getUser = getUser;
+module.exports.postUser = postUser;
+module.exports.register = register;
 
