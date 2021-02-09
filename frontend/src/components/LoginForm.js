@@ -48,8 +48,9 @@ export default function LoginForm() {
 
     return (
         <>
-            <div className="containerLoginForm">
-                <div className="containerForm">
+            <div className="container-login-form">
+                <div className="container-form">
+                <div className="side-line"></div>
                     <form onSubmit={handleSubmit}>
                         <input
                             className="input"
@@ -69,7 +70,7 @@ export default function LoginForm() {
                             required
                             onChange={handleChange}
                         />
-                        <div className="containerButton">
+                        <div className="container-button">
                             <input
                                 type="submit"
                                 className="button"
@@ -77,12 +78,15 @@ export default function LoginForm() {
                             />
                         </div>
                     </form>
-                    <div className="containerLink">
-                        <Link to="/registrera">registrera.</Link>
+                    <div className="container-link">
+                        <Link to="/registrera">registrera</Link>
+                        <div className="bottom-line"></div>
                     </div>
                 </div>
-                <div className="containerEmail">
-                    <Link to="/registrera">taletotell@gmail.com.</Link>
+                <div className="container-email">
+                    <div className="email">taletotell@gmail.com.</div>
+                    <div className="bottom-line"></div>
+                    <div className="side-line-right"></div>
                 </div>
                 {
                     userId && <Redirect to="/main" />

@@ -18,7 +18,7 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <Aside />
+        {/* <Aside /> */}
 
         {/* kan /main göras till att bli username i URL */}
         <UserIdContext.Provider value={{ userId, setUserId }} >
