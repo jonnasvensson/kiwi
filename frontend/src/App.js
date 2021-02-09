@@ -22,8 +22,8 @@ function App() {
 
         {/* kan /main göras till att bli username i URL */}
         <UserIdContext.Provider value={{ userId, setUserId }} >
-          <Route exact path="/" component={Login} />
           <UserContext.Provider value={{ user, setUser }}>
+            <Route exact path="/" component={Login} />
             <Route path="/main" component={Main} />
           </UserContext.Provider>
           <Route path="/registrera" component={Register} />

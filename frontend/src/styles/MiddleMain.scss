@@ -71,10 +71,15 @@ p {
 .containerLowerInfo {
     margin-top: 41px;
     display: flex;
-    background-color: lightgray;
     border-radius: 9px;
-    .containerclub {
-        border-bottom: 1px solid var(--background-color-button);
-        margin: 5px
+    margin: 24px;
+    .container-members {
+        border: 2px solid black;
+        border-radius: 9px;
+        padding: 19px;
+        margin: 4px;
+        .title {
+            padding: 5px;
+        }
     }
 }
