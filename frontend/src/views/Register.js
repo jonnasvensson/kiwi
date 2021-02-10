@@ -58,25 +58,11 @@ export default function Register() {
 
     const getBooks = () => {
         axios
-            .get('https://www.googleapis.com/books/v1/volumes?q=kiwi:keyes&key=AIzaSyAebR05OsbKEi-9Wq2pmUosPsl9nVu-J3g')
+            .get('https://www.googleapis.com/books/v1/volumes?q=intitle:holiday&maxResults=40')
             .then(resp => {
                 setgoogleBooks(resp.data.items.map(item => item.volumeInfo.title))
             })
         }
-    const random = (googleBooks) => {
-        console.log('random');
-        return Math.floor(Math.random()*googleBooks.length);
-    }
-
-    // const mapBooks = () => {
-        
-    //     let mapped = googleBooks.map(item => item.volumeInfo)
-
-    //     console.log(mapped);
-
-    // }
-
-    // mapBooks();
 
     const matchingUsers = (mappedUser) => {
             mappedUser = allUsers.map(user => user)
