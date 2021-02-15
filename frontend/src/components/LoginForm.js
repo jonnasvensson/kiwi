@@ -48,13 +48,12 @@ export default function LoginForm() {
 
     return (
         <>
-            <div className="container-login-form">
-                <div className="container-form">
-                <div className="side-line"></div>
+            <div className="container-form">
+                {/* <div className="side-line"></div> */}
                     <form onSubmit={handleSubmit}>
                         <input
                             className="input"
-                            placeholder="användarnamn"
+                            placeholder="ANVÄNDARNAMN"
                             type="text"
                             value={input.username}
                             required
@@ -63,7 +62,7 @@ export default function LoginForm() {
                         />
                         <input
                             className="input"
-                            placeholder="lösenord"
+                            placeholder="LÖSENORD"
                             type="password"
                             value={input.password}
                             name="password"
@@ -74,24 +73,17 @@ export default function LoginForm() {
                             <input
                                 type="submit"
                                 className="button"
-                                value="logga in."
+                                value="LOGGA IN"
                             />
                         </div>
                     </form>
-                    <div className="container-link">
+                    {/* <div className="container-link">
                         <Link to="/registrera">registrera</Link>
-                        <div className="bottom-line"></div>
-                    </div>
-                </div>
-                <div className="container-email">
-                    <div className="email">taletotell@gmail.com.</div>
-                    <div className="bottom-line"></div>
-                    <div className="side-line-right"></div>
+                    </div> */}
                 </div>
                 {
                     userId && <Redirect to="/main" />
                 }
-            </div>
         </>
     )
 }

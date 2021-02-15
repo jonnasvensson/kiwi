@@ -1,28 +1,84 @@
-@import "colors.css";
 @import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;1,300&family=Source+Sans+Pro:wght@400;600&display=swap");
 // font-family: 'Rubik', sans-serif;
 // font-family: 'Source Sans Pro', sans-serif;
 
+$fontSize: 16px;
+$backgroundColorButton: #edda99;
+$colorText: #141418;
+$backgroundColorDark: #141418;
+$backgroundColorLight: #ece9df;
+$lineColor: #f5eed5;
+
 .App {
     display: flex;
-    width: 100vw;
     height: 100vh;
+    position: relative;
+    .container-front {
+        width: 65%;
+        height: auto;
+    
+        background-image: url(../assets/book.jpg);
+        background-size: cover;    
+    }
+    .container2-front {
+        width: 35%;
+        background-color: #edda99;
+        height: 100vh;
+
+    }
 }
 
 // styling views
 
-.containerImg {
-    width: 70%;
-    .imgWrapper {
-        width: 100%;
-        height: 100%;
-        img {
-            width: 100%;
-            height: 100vh;
-            object-fit: cover;
-        }
+.bottom-line {
+    width: calc(100% - 80px);
+    height: 3px;
+    position: absolute;
+    margin: 10px 40px;
+    background-color: $lineColor;
+    // border-radius: 9px;
+}
+
+.wrapper {
+    // width: 65%;
+    // height: auto;
+
+    // background-image: url(../assets/book.jpg);
+    // background-size: cover;
+    .containerImg {
+        // .imgWrapper {
+        //     width: 100%;
+        //     height: 100%;
+        //     img {
+        //         width: 100%;
+        //         height: 100vh;
+        //         object-fit: cover;
+        //     }
+        // }
     }
 }
+
+    .navbar {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 30px;
+        width: 100%;
+        height: fit-content;
+        position: absolute;
+        right: 40px;
+        
+        section {
+            border-bottom: 1px solid white;
+            margin-right: 10px;
+            a {
+                text-decoration: none;
+                color: black;
+                font-size: 24px;
+                margin: 10px;
+            }
+        }
+    }
+
 
 .containerImgMain {
     width: 50%;
@@ -39,3 +95,22 @@
 }
 
 
+@media (max-width: 1200px) {
+    .navbar {
+        section {
+            a:first-child {
+                color: white;
+            }
+        }
+    }
+}
+
+@media (max-width: 890px) {
+    .navbar {
+        section {
+            a:nth-child(2) {
+                color: white;
+            }
+        }
+    }
+}

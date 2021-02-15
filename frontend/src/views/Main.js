@@ -23,11 +23,11 @@ export default function Main () {
                 !userId && <Redirect to="/" />
             }
             <MiddleMain />
-            <div className="containerImgMain">
+            {/* <div className="containerImgMain">
                 <div className="imgWrapper">
                     <img className="img" srcSet={img} alt="bok och blommor"/>
                 </div>
-            </div>
+            </div> */}
         </>
     )
 }

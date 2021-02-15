@@ -37,6 +37,19 @@ async function getBookClubs() {
   }
 }
 
+async function addMemberToBookClub(bookClubId, updatedBookClub) {
+  console.log('ID', bookClubId);
+  console.log('updated', updatedBookClub);
+  try {
+    const result = await db
+    .collection('bookClubs')
+    .findOneAndUpdate( {_id: ObjectId(bookClubId) }, { $set: updatedBookClub })
+    return result;
+  } catch {
+      throw error;
+  }
+}
+
 async function getUser(userId) {
   try {
     const result = await db
@@ -88,4 +101,5 @@ module.exports.getBookClubs = getBookClubs;
 module.exports.getUser = getUser;
 module.exports.postUser = postUser;
 module.exports.register = register;
+module.exports.addMemberToBookClub = addMemberToBookClub;
 

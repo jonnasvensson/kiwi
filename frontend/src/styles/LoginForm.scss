@@ -1,134 +1,129 @@
+$fontSize: 16px;
+$backgroundColorButton: #edda99;
+$colorText: #141418;
+$backgroundColorDark: #141418;
+$backgroundColorLight: #ece9df;
+$lineColor: #f5eed5;
 
-.container-login-form {
-    $fontSize: 16px;
-    $backgroundColorButton: #EDDA99;
-    $colorText: #141418;
-    $backgroundColorDark: #141418;
+.side-line {
+    margin: 10px 20px;
+    width: 3px;
+    height: 100%;
+    right: 10px;
+    position: absolute;
+    background-color: #ffffff;
+    border-radius: 9px;
+}
+.container-form {
+    border-radius: 9px;
+    border: 3px solid $lineColor;
+    box-sizing: border-box;
+    padding: 30px;
+    // margin: 290px 30px 0 30px;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    left: 83%;
+    top: 50%;
+    width: 30vw;
+    form {
+        // padding: 0 11px 0 78px;
+        flex-direction: column;
+        display: flex;
+        justify-content: flex-end;
+        .input {
+            border-top-left-radius: 9px;
+            border-top-right-radius: 9px;
+            border: 1px solid var(--color-border);
+            border-bottom: solid lightgray;
+            height: 36px;
+            width: 100%;
+            box-sizing: border-box;
+            margin: 36px 0 35px 0;
+            font-size: $fontSize;
+            color: $colorText;
+            font-family: "Rubik";
+            padding-left: 11px;
+            &:focus {
+                font-size: $fontSize;
+                color: var(--color-text);
+                font-family: "Rubik";
+            }
+            &::placeholder {
+                font-size: $fontSize;
+                color: $colorText;
+                font-family: "Rubik";
+            }
+        }
 
-    background-color: var(--background-color-loginForm);
-    position: relative;
-    width: 30%;
-    .side-line {
-        width: 2px;
-        height: 373px;
+        .container-button {
+            display: flex;
+            justify-content: flex-end;
+            width: 100%;
+            margin: 36px 0 0 0;
+            .button {
+                background: #ffffff;
+                border: none;
+                border-radius: 9px;
+                color: $colorText;
+                font-size: 21px;
+                font-family: "Source Sans Pro";
+                cursor: pointer;
+                padding: 10px;
+            }
+        }
+    }
+    .container-link {
+        padding: 110px 0 0 15px;
+        .bottom-line {
+            width: 221px;
+            height: 6px;
+            position: absolute;
+            top: 15px;
+            background-color: #ffffff;
+            border-radius: 9px;
+        }
+    }
+}
+.container-email {
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    .email {
+        text-decoration: none;
+        color: #ffffff;
+        font-family: "Rubik";
+        margin: 0 60px 10px 0;
+        transform: rotate(-90deg);
         position: absolute;
-        left: 15px;
-        top: 16px;
+        top: 75px;
+    }
+    .bottom-line {
+        width: 90vw;
+        height: 6px;
+        position: absolute;
+        top: 15px;
         background-color: #ffffff;
         border-radius: 9px;
     }
-    .container-form {
+    .side-line-right {
+        width: 2px;
+        height: 850px;
         position: absolute;
-        left: -300px;
-        top: 114px;
+        right: 21px;
+        top: 19px;
+        background-color: #ffffff;
         border-radius: 9px;
-        height: 424px;
-        width: 344px;
-        background-color: $backgroundColorDark;
-        border: none;
-        form {
-            padding: 0 11px 0 78px;
-            flex-direction: column;
-            display: flex;
-            justify-content: flex-end;
-            .input {
-                border-radius: 9px;
-                border: 1px solid var(--color-border);
-                height: 36px;
-                width: 100%;
-                box-sizing: border-box;
-                margin: 36px 0 35px 0;
-                font-size: $fontSize;
-                color: $colorText;
-                font-family: 'Rubik';
-                padding-left: 11px;
-                &:focus {
-                    font-size: $fontSize;
-                    color: var(--color-text);
-                    font-family: 'Rubik';
-                }
-                &::placeholder {
-                    font-size: $fontSize;
-                    color: $colorText;
-                    font-family: 'Rubik';
-                }
-            }
-
-            .container-button {
-                display: flex;
-                justify-content: flex-end;
-                width: 100%;
-                margin: 36px 0 0 0;
-                .button {
-                    width: 109px;
-                    height: 36px;
-                    background: $backgroundColorButton;
-                    border: none;
-                    border-radius: 9px;
-                    color: $colorText;
-                    font-size: $fontSize;
-                    font-family: 'Source Sans Pro';
-                    cursor: pointer;
-                }
-            }
-        }
-        .container-link {
-            padding: 110px 0 0 15px;
-            .bottom-line {
-                width: 221px;
-                height: 6px;
-                position: absolute;
-                right: 15px;
-                bottom: 15px;
-                background-color: #ffffff;
-                border-radius: 9px;
-            }
-        }
     }
-    .container-email {
-        height: 100%;
-        display: flex;
-        justify-content: flex-end;
-        align-items: flex-end;
-        background-color: #141418;
-        .email {
-            text-decoration: none;
-            color: #ffffff;
-            font-family: 'Rubik'; 
-            margin: 0 60px 10px 0;
-            transform: rotate(-90deg);
-            position: absolute;
-            bottom: 75px;
-            right: -110px;
-    
-        }
-        .bottom-line {
-            width: 600px;
-            height: 6px;
-            position: absolute;
-            right: 41px;
-            bottom: 15px;
-            background-color: #ffffff;
-            border-radius: 9px;
-        }
-        .side-line-right {
-            width: 2px;
-            height: 850px;
-            position: absolute;
-            right: 21px;
-            top: 19px;
-            background-color: #ffffff;
-            border-radius: 9px;
-        }
-    
+}
+a {
+    text-decoration: none;
+    color: #ffffff;
+    font-family: "Rubik";
+}
 
-    }
-    a {
-        text-decoration: none;
-        color: #ffffff;
-        font-family: 'Rubik'; 
-        margin: 0 60px 10px 0;
-        transform: rotate(-90deg);
-
-    }
+.container-login-form {
+    background-color: var(--background-color-loginForm);
+    position: relative;
+    width: 30%;
 }

@@ -1,10 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import '../styles/Register.scss';
 import { areaOneApi, areaTwoApi, areaThreeApi, registerUserApi, allUsersApi, bookClubsApi } from '../assets/axiosURLs'
+import { BookClubsContext } from '../UserContext';
+import ModalUserCreated from '../components/ModalUserCreated';
+
+
 
 export default function Register() {
+    const { bookClubs, setBooksClubs } = useContext(BookClubsContext);
+
     const [allAreas, setAllAreas] = useState([]);
     const [allUsers, setAllUsers] = useState([]);
     const [input, setInput] = useState({
@@ -13,12 +19,6 @@ export default function Register() {
         repeatPassword: '',
         name: '',
         gender: '',
-        // area: '',
-        // age: '',
-        // categories: [],
-        // meetUpTime: [],
-        // readLanguage: [],
-        // speakLanguage: []
     });
     const [categories, setCategories] = useState([]);
     const [meetUpTimes, setMeetUpTimes] = useState([]);
@@ -32,40 +32,173 @@ export default function Register() {
     const [errorBookClub, setErrorBookClub] = useState(false);
     const [usersInBooklub, setUsersInBookClub] = useState([]);
     const [googleBooks, setgoogleBooks] = useState([]);
+    const [modalActive, setModalActive] = useState(false)
 
-    
+
     useEffect(() => {
         getAreaAPI();
         getUsers();
-        getBooks();
+        // getBooks();
     }, [])
+
+    const activateModal = () => {
+        setModalActive(true);
+    }
     
-    const createBookClub = (members) => {
-        
-        let bookClub = {
-            name: googleBooks[Math.floor(Math.random()*googleBooks.length)],
-            category: categories,
-            members: members
-        }
-        if (categories) {
-            
-            axios
-                .post(bookClubsApi, bookClub )
-                .then((res) => {})
-                .catch(error => console.error(error));
-        }
+    const deactivateModal = () => {
+        setModalActive(false);
     }
 
-    const getBooks = () => {
-        axios
-            .get('https://www.googleapis.com/books/v1/volumes?q=intitle:holiday&maxResults=40')
-            .then(resp => {
-                setgoogleBooks(resp.data.items.map(item => item.volumeInfo.title))
-            })
+    // const createBookClub = (members) => {
+
+    //     let bookClub = {
+    //         name: randomTitle(googleBooks),
+    //         area: selectArea,
+    //         gender: input.gender,
+    //         age: selectAge,
+    //         category: categories,
+    //         members: members
+    //     }
+
+    //     let selectedValue = bookClub.category.find(value => value)
+    //     let y = bookClubs.filter(bookClub => {
+    //         let i = bookClub.category.find(value => {
+    //             return value === selectedValue
+    //         })
+    //         if (i === null) {
+    //             console.log(i);
+    //             return
+    //         }
+    //         if (i) {
+    //             return bookClub
+    //         }
+    //         return i
+    //     })
+
+    //     let mapped = y.map(bookClubs => {
+    //         return bookClubs
+    //     })
+    //         .filter(bookClubsfilter => {
+    //             let x = bookClubsfilter.members.length
+    //             if (x < 10) {
+    //                 return bookClubsfilter
+    //             }
+    //             else {
+    //                 return
+    //             }
+    //         })
+
+    //     if (categories) {
+    //         axios
+    //             .post(bookClubsApi, bookClub)
+    //             .then((res) => { })
+    //             .catch(error => console.error(error));
+    //     }
+    // }
+
+    const postAxiosUser = () => {
+        let usersFromMatching = matchingUsers();
+
+        const user = {
+            username: input.username,
+            password: input.password,
+            name: input.name,
+            gender: input.gender,
+            area: selectArea,
+            age: selectAge,
+            categories: categories,
+            meetUpTimes: meetUpTimes,
+            readLanguages: readLanguages,
+            speakLanguages: speakLanguages
         }
+        axios
+            .post(registerUserApi, user)
+            .then((res) => {
+                // let newArray = [...usersFromMatching, ...res.data.ops]
+                // setUsersInBookClub([...res.data.ops, ...usersFromMatching])
+                // if (newArray.length >= 2) {
+                //     createBookClub(newArray);
+                //     console.log('bokklubb skapad');
+                // } else {
+                //     console.log('Bokklubb not created');
+                //     return
+                // }
+            })
+            .catch(err => {
+                console.error(err);
+            })
+    }
+
+
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (!input.username) {
+            setError(true)
+            return
+        }
+        if (input.username) {
+            setError(false);
+            if (!input.password) {
+                setErrorPassword(true);
+                return
+            }
+            if (input.password === input.repeatPassword) {
+                setErrorPassword(false);
+                matchingUsers();
+                if (categories.length >= 1) {
+                    postAxiosUser();
+                }
+                if (categories.length === 0) {
+                    setErrorBookClub(true);
+                } else {
+                    setErrorBookClub(false);
+                }
+            } else {
+                setErrorPassword(false);
+            }
+        }
+        activateModal();
+    }
+
+
+    const randomTitle = (title) => {
+        return title[Math.floor(Math.random() * title.length)]
+    }
+
+    // const getBooks = () => {
+    //     axios
+    //         .get('https://www.googleapis.com/books/v1/volumes?q=intitle:holiday&maxResults=40')
+    //         .then(resp => {
+    //             setgoogleBooks(resp.data.items.map(item => item.volumeInfo.title))
+    //         })
+    // }
+
+
+    const findBookClub = () => {
+        let x = bookClubs && bookClubs.filter(bookClub => bookClub)
+        .filter(bookClub => bookClub.area === selectArea)
+        .filter(bookClub => bookClub.gender === input.gender)
+        .filter(bookClub => bookClub.age === selectAge)
+        .filter(bookClub => {
+            let categoryMatch = bookClub.category.find((value, index) => {
+                return value === categories[index];
+            })
+            if (categoryMatch == null) {
+                return
+            }
+            if (categoryMatch) {
+                return bookClub;
+            }
+            return bookClub;
+        })
+        // console.log(x);
+    }
+    findBookClub();
+
 
     const matchingUsers = (mappedUser) => {
-            mappedUser = allUsers.map(user => user)
+        mappedUser = allUsers.map(user => user)
             .filter(user => user.area === selectArea)
             .filter(user => user.gender === input.gender)
             .filter(user => user.age === selectAge)
@@ -75,7 +208,6 @@ export default function Register() {
                     return category === categories[index];
                 })
                 if (categoryMatch == null) {
-                    console.log('no match', categoryMatch);
                     return
                 }
                 if (categoryMatch) {
@@ -110,9 +242,9 @@ export default function Register() {
                 }
                 return user;
             })
-            return mappedUser
-        }
-    
+        return mappedUser
+    }
+
     const getAreaAPI = () => {
         axios.all([
             axios.get(areaOneApi),
@@ -217,66 +349,6 @@ export default function Register() {
         }
     }
 
-    const postAxiosUser = () => {
-        let usersFromMatching = matchingUsers();
-
-        const user = {
-            username: input.username,
-            password: input.password,
-            name: input.name,
-            gender: input.gender,
-            area: selectArea,
-            age: selectAge,
-            categories: categories,
-            meetUpTimes: meetUpTimes,
-            readLanguages: readLanguages,
-            speakLanguages: speakLanguages
-        }
-        axios
-            .post(registerUserApi, user)
-            .then((res) => {
-                let newArray = [...usersFromMatching, ...res.data.ops]
-                setUsersInBookClub([...res.data.ops, ...usersFromMatching])
-                if (newArray.length >= 2) {
-                    createBookClub(newArray);
-                    console.log('bokklubb skapad');
-                } else {
-                    console.log('Bokklubb not created');
-                }
-             })
-            .catch(err => {
-                console.error(err);
-            })
-    }
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        if (!input.username) {
-            setError(true)
-            return
-        }
-        if (input.username) {
-            setError(false);
-            if (!input.password) {
-                setErrorPassword(true);
-                return
-            }
-            if (input.password === input.repeatPassword) {
-                setErrorPassword(false);
-                matchingUsers();
-                if (categories.length >= 1) {
-                    postAxiosUser();
-                }
-                if (categories.length === 0) {
-                    setErrorBookClub(true);
-                } else {
-                    setErrorBookClub(false);
-                }
-            } else {
-                setErrorPassword(false);
-            }
-        }
-    }
 
 
     const
@@ -287,6 +359,14 @@ export default function Register() {
 
     return (
         <>
+            <div className="wrapper">
+                <div className="containerImg">
+                    {/* <div className="imgWrapper">
+                        <img className="img" srcSet={img} alt="bok och blommor"/>
+                    </div> */}
+                </div>
+            </div>
+
             <form className="register-container" onSubmit={handleSubmit} >
                 <input
                     className="input"
@@ -394,10 +474,10 @@ export default function Register() {
                     <div className="container-title">
                         <p className="title">Kategori</p>
                         <div className="error">
-                    {
-                        errorBookClub && <div className="title">välj en kategori</div>
-                    }
-                </div>
+                            {
+                                errorBookClub && <div className="title">välj en kategori</div>
+                            }
+                        </div>
                     </div>
                     <div className="mapped-group">
                         {
@@ -408,7 +488,7 @@ export default function Register() {
                                         value={category}
                                         name={category}
                                         onChange={handleCategories}
-                                         />
+                                    />
                                     <label>{category}</label>
                                 </div>
                             ))
@@ -479,9 +559,11 @@ export default function Register() {
                 </div>
 
                 <div className="button-container">
-                    <input className="button" type="submit" onClick={handleSubmit}/>
+                    <input className="button reg" type="submit" onClick={handleSubmit} value="REGISTERA MIG"/>
                 </div>
-                <Link to="/">Är du redan medlem? Klicka här.</Link>
+            {
+                modalActive && <ModalUserCreated deactivateModal={deactivateModal} />
+            }
             </form>
         </>
     )

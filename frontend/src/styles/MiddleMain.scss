@@ -1,21 +1,44 @@
+.outer-container {
+    opacity: 0.5;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: #ffffff;
+}
+
 .middleMainContainer {
+    $fontSize: 16px;
+    $backgroundColorButton: #EDDA99;
+    $colorText: #141418;
+    $backgroundColorDark: #141418;
+
     display: flex;
-    flex-direction: column;
     align-items: center;
-    width: 50%;
-    position: relative;
+    justify-content: center;
+    width: 100%;
+    // background-color: grey;
+    position: absolute;
 }
     .container {
-        position: absolute;
-        border: solid black;
-        left: 120px;
-        top: 112px;
         box-sizing: border-box;
-        width: 90%;
-        min-height: 80vh;
-        background: var(--background-color-aside);
+        background: #ffffff;
         padding: 23px; 
         border-radius: 9px;
+        width: 100%;
+        margin: 20px;
+        .button {
+            width: 109px;
+            height: 36px;
+            background: #ECDB9E;
+            border: none;
+            border-radius: 9px;
+            color: black;
+            font-size: 16px;
+            font-family: "Source Sans Pro";
+            cursor: pointer;
+            margin: 5px;
+        }
+        
     }
     .topContainer {
         width: 100%;
@@ -23,36 +46,25 @@
     }
     .usernameInfo {
         display: flex;
-        align-items: center;
         justify-content: space-between;
-        margin-bottom: 80px;
+        margin: 0 0 20px 10px;
 
         .username {
             font-size: 21px;
             font-family: "Rubik";
             font-weight: 600;
+            margin-top: 20px;
         }
 
-        .button {
-            width: 109px;
-            height: 36px;
-            background: var(--background-color-button);
-            border: none;
-            border-radius: 9px;
-            color: var(--background-color-loginForm);
-            font-size: 16px;
-            font-family: "Source Sans Pro";
-            cursor: pointer;
-        }
     }
     .contentGroup {
-        margin: 0 20px;
+        display: flex;
+        margin: 30px;
 
     }
 
     .bottomContainer {
         width: 100%;
-        height: 100%;
     }
 
 
@@ -71,6 +83,7 @@ p {
 .containerLowerInfo {
     margin-top: 41px;
     display: flex;
+    flex-wrap: wrap;
     border-radius: 9px;
     margin: 24px;
     .container-members {
@@ -83,3 +96,4 @@ p {
         }
     }
 }
+

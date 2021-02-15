@@ -19,12 +19,27 @@ app.get('/bookclubs', async (req, res) => {
 app.post('/bookclubs', async (req, res) => {
     let bookClub = {
         name: req.body.name,
+        area: req.body.area,
+        gender: req.body.gender,
+        age: req.body.age,
         category: req.body.category,
         members: req.body.members
     };
     const data = await MONGODB.createBookClub(bookClub);
     !data ? res.status(500).send() : res.status(201).send(data);
 })
+app.put('/bookClubs/:bookclubId', async (req, res) => {
+    let bookClubId = req.params.bookclubId
+    console.log(bookClubId);
+    let updatedBookClub = {
+        name: req.body.name,
+        members: req.body.members,
+        // _id: req.body._id
+    };
+    const data = await MONGODB.addMemberToBookClub(bookClubId, updatedBookClub);
+    !data ? res.status(500).send() : res.status(201).send(data);
+})
+
 
 app.get('/users', async (req, res) => {
     const data = await MONGODB.getAllUsers();

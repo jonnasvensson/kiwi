@@ -9,3 +9,4 @@ export const userApi = 'http://localhost:5000/user/';
 export const registerUserApi = 'http://localhost:5000/register'; 
 export const allUsersApi = 'http://localhost:5000/users';
 export const bookClubsApi = 'http://localhost:5000/bookclubs';
+export const updateBookClubsApi = 'http://localhost:5000/:bookclubId';
