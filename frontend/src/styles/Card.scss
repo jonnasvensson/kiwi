@@ -1,5 +1,7 @@
+$backgroundColorButton: #3E6770;
+
 .containerBookClub {
-    border: solid black;
+    border: 2px solid $backgroundColorButton;
     border-radius: 9px;
     padding: 19px;
     margin: 0 10px;
@@ -15,6 +17,10 @@
         .group {
             display: flex;
             justify-content: space-between;
+            p:first-child {
+                font-family: "Source Sans Pro";
+                margin-right: 10px;
+            }
             p:last-child {
                 font-family: "Source Sans Pro";
                 font-weight: 600;

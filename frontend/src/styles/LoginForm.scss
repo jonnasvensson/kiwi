@@ -1,5 +1,5 @@
 $fontSize: 16px;
-$backgroundColorButton: #edda99;
+$backgroundColorButton: #3E6770;
 $colorText: #141418;
 $backgroundColorDark: #141418;
 $backgroundColorLight: #ece9df;
@@ -16,7 +16,7 @@ $lineColor: #f5eed5;
 }
 .container-form {
     border-radius: 9px;
-    border: 3px solid $lineColor;
+    border: 3px solid $backgroundColorButton;
     box-sizing: border-box;
     padding: 30px;
     // margin: 290px 30px 0 30px;
@@ -34,7 +34,7 @@ $lineColor: #f5eed5;
             border-top-left-radius: 9px;
             border-top-right-radius: 9px;
             border: 1px solid var(--color-border);
-            border-bottom: solid lightgray;
+            border-bottom: solid $backgroundColorButton;
             height: 36px;
             width: 100%;
             box-sizing: border-box;
@@ -61,7 +61,7 @@ $lineColor: #f5eed5;
             width: 100%;
             margin: 36px 0 0 0;
             .button {
-                background: #ffffff;
+                background: $backgroundColorButton;
                 border: none;
                 border-radius: 9px;
                 color: $colorText;
@@ -69,6 +69,7 @@ $lineColor: #f5eed5;
                 font-family: "Source Sans Pro";
                 cursor: pointer;
                 padding: 10px;
+                color: #ffffff;
             }
         }
     }

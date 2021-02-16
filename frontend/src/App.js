@@ -41,10 +41,10 @@ function App() {
   return (
     <div className="App">
       <Router>
-      <div className="container-front">
+      <div className="container-left">
         <Navigation />
         </div>
-      <div className="container2-front">
+      <div className="container-right">
       </div>
         {/* <Aside /> */}
 

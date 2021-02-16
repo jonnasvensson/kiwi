@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react';
 // import { BrowserRouter as Router, Route, useParams } from "react-router-dom";
 import '../styles/MiddleMain.scss'
 import Card from '../components/Card'
-import SuggestionCard from '../components/SuggestionCard'
 import { UserContext, UserIdContext, BookClubsContext } from '../UserContext';
 import axios from 'axios';
 import { userApi, bookClubsApi, updateBookClubsApi } from '../assets/axiosURLs'
@@ -10,23 +9,27 @@ import ModalCreateBookClub from './ModalCreateBookClub';
 import Navbar from './Navbar'
 
 
-export default function MiddleMain() {
+export default function MiddleMain({  }) {
     const { userId, setUserId } = useContext(UserIdContext);
     const { user, setUser } = useContext(UserContext);
     const { bookClubs, setBooksClubs } = useContext(BookClubsContext);
-    // const [showMembers, setShowMembers] = useState(false);
-    const [clickedBookClub, setClickedBookClub] = useState('');
+    const [clickedBookClub, setClickedBookClub] = useState({});
     const [modalCreateBookClub, setModalCreateBookClub] = useState(false);
     const [modalActiveBookClub, setModalActiveBookClub] = useState(false);
-    // const [googleBooks, setgoogleBooks] = useState([]);
     const [bookClubTitle, setbookClubTitle] = useState('');
-    const [input, setInput] = useState('bok');
+    const [input, setInput] = useState('');
     const [suggestedBookClubs, setSuggestedBookClubs] = useState(false);
     // const [bookClubId, setBookClubId] = useState('');
+    // const [googleBooks, setGoogleBooks] = useState([]);
 
     const handleChange = (e) => {
         setInput(e.target.value);
     }
+
+    const randomTitle = (title) => {
+        return title[Math.floor(Math.random() * title.length)]
+    }
+
     useEffect(() => {
 
         const fetchData = async () => {
@@ -37,39 +40,46 @@ export default function MiddleMain() {
             catch (error) {
                 console.error(error);
             };
+            try {
+                const resp = await axios.get('https://www.googleapis.com/books/v1/volumes?q=intitle:holiday&maxResults=40')
+                setInput(randomTitle(resp.data.items.map(item => item.volumeInfo.title)));
+                // const data = setGoogleBooks(resp.data.items.map(item => item.volumeInfo.title))
+            }
+            catch (error) {
+                console.error(error);
+            }
+
             // try {
-                //     const resp = await axios.get(bookClubsApi)
-                //     const data = setBooksClubs(resp.data)
-                
-                // } catch (error) {
-                    //     console.error(error);
-                    // }
-                }
+            //     const resp = await axios.get(bookClubsApi)
+            //     const data = setBooksClubs(resp.data)
 
-                fetchData();
-                findBookClubsBasedOnCriterias();
-                // getBooks();
-            }, [])
-
-            const activateModalCreateBookClub = () => {
-                setModalCreateBookClub(true);
-            }
-
-            const deactivateModalModalCreateBookClub = () => {
-                setModalCreateBookClub(false);
-                // handleCreateNewBookClub();
-            }
-
-            // const activateModalBookClub = () => {
-            //     setModalActiveBookClub(true);
+            // } catch (error) {
+            //     console.error(error);
             // }
+        }
 
-            const deactivateModalBookClub = (e) => {
-                e.stopPropagation();
-                setModalActiveBookClub(false);
-            }
-            
-            const createBookClub = (members) => {
+        fetchData();
+        findBookClubsBasedOnCriterias();
+    }, [])
+
+    const activateModalCreateBookClub = (e) => {
+        setModalCreateBookClub(true);
+    }
+
+    // const activateModalBookClub = () => {
+    //     setModalActiveBookClub(true);
+    // }
+
+    const deactivateModalCreateBookClub = () => {
+        setModalCreateBookClub(false);
+    }
+
+    const deactivateModalBookClub = (e) => {
+        setModalActiveBookClub(false);
+        findBookClubsBasedOnCriterias();
+    }
+
+    const createBookClub = () => {
 
         let bookClub = {
             name: input,
@@ -117,19 +127,6 @@ export default function MiddleMain() {
 
     }
 
-    const randomTitle = (title) => {
-        return title[Math.floor(Math.random() * title.length)]
-    }
-
-    // const getBooks = () => {
-    //     axios
-    //         .get('https://www.googleapis.com/books/v1/volumes?q=intitle:holiday&maxResults=40')
-    //         .then(resp => {
-    //             setgoogleBooks(resp.data.items.map(item => item.volumeInfo.title))
-    //         })
-    // }
-
-
     const findBookClubsBasedOnCriterias = () => {
         let noMatch = [];
         let match = [];
@@ -153,49 +150,48 @@ export default function MiddleMain() {
                 let a = bookClub.members.find((member) => {
                     return member.name === user.name
                 })
-                
+
                 if (a) {
                     match = [...match, bookClub]
                     return match
                 }
                 if (!a) {
                     noMatch = [...noMatch, bookClub]
-                    return noMatch
+                    let x = noMatch.map(members => {
+                        return members.members.length;
+                    })
+                    console.log(noMatch);
+                    if (x >= 10) {
+                        console.log('x', x);
+                        noMatch = [];
+                        console.log(noMatch);
+                    } 
                 }
                 return a
             })
-            let object = { noMatch : noMatch, match: match }
+            console.log(noMatch);
+        let object = { noMatch: noMatch, match: match }
         return object;
     }
 
-    const handleAddMember = (id) => {
-        let x = suggestions.reduce((acc, suggestion) => {
-            return [...acc, ...suggestion.members]
+    const handleAddMember = () => {
+        let x = suggestions.noMatch.reduce((acc, suggestion) => {
+                return [...acc, ...suggestion.members]
         }, [])
+        let id = clickedBookClub._id
+        setSuggestedBookClubs(false);
+        let updatedBookClub = {
+            members: [...x, user]
+        };
+        axios
+            .put(`http://localhost:5000/bookClubs/${id}`, updatedBookClub)
+            .then(resp => {})
+            .catch(error => console.error(error));
 
-
-        let match = x.find((member) => {
-            return member.username !== user.username
-        })
-        console.log(match);
-
-        if (!match) {
-            setSuggestedBookClubs(false);
-            let updatedBookClub = {
-                name: input,
-                members: [...x, user]
-            };
-            axios
-                .put(`http://localhost:5000/bookClubs/${id}`, updatedBookClub)
-                .then(resp => { })
-                .catch(error => console.error(error));
-        } 
-        if (match) {
-            setSuggestedBookClubs(true);
-        }
+            deactivateModalBookClub();
     }
 
-    
+
     const handleCreateNewBookClub = () => {
         createBookClub();
         setModalActiveBookClub(false);
@@ -210,10 +206,6 @@ export default function MiddleMain() {
         setClickedBookClub(id)
     }
 
-    // const handleShowMembers = (id) => {
-    //     // setShowMembers({showMembers: !showMembers});
-    //     // setClickedBookClub(id)
-    // }
     const findBookClub = () => {
         if (bookClubs) {
             let mapped = bookClubs.map(bookClub => {
@@ -237,14 +229,15 @@ export default function MiddleMain() {
 
     const membersBookClubs = findBookClub();
     const suggestions = findBookClubsBasedOnCriterias();
+    console.log(suggestions);
 
     return (
         <>
-        <div className="outer-container"></div>
+            <div className="outer-container"></div>
 
             {
                 user &&
-                
+
                 <main className="middleMainContainer">
                     <div className="container">
                         <section className="topContainer">
@@ -256,22 +249,28 @@ export default function MiddleMain() {
                                 <p className="content">Bokklubbar du är med i</p>
                             </div>
                             <div className="contentGroup">
-                                <Card 
-                                    suggestions={suggestions.match} 
-                                    handleClickedBookClub={(id) => handleClickedBookClub(id)} 
-                                    clickedBookClub={clickedBookClub}
-                                    modalActiveBookClub={modalActiveBookClub}
-                                    deactivateModalBookClub={deactivateModalBookClub}
-                                    />
+                                {
+                                    suggestions.match.length === 0 ? <p>Inga matchande bokklubbar</p> :
+                                        <Card
+                                            suggestions={suggestions.match}
+                                            clickedBookClub={clickedBookClub}
+                                            modalActiveBookClub={modalActiveBookClub}
+                                            deactivateModalBookClub={deactivateModalBookClub}
+                                            handleClickedBookClub={handleClickedBookClub}
+                                            handleAddMember={handleAddMember}
+
+                                            />
+                                        }
+
 
                                 {/* <p>{suggestions.match.map(item => {
                                     return <div>{item.name}</div>
                                 })}</p> */}
                                 {/* {
                                     membersBookClubs &&
-                                <Card membersBookClubs={membersBookClubs} handleShowMembers={(id) => handleShowMembers(id)} />
+                                    <Card membersBookClubs={membersBookClubs} handleShowMembers={(id) => handleShowMembers(id)} />
                                 }
- */}
+                            */}
                                 <div className="buttonContainer">
                                 </div>
                             </div>
@@ -282,52 +281,47 @@ export default function MiddleMain() {
                             <div className="contentGroup">
                                 {
                                     suggestions.noMatch.length === 0 ? <p>Inga väntande bokklubbar</p> :
-                                    <Card suggestions={suggestions.noMatch}/>
+
+                                    <Card
+                                        suggestions={suggestions.noMatch}
+                                        handleClickedBookClub={handleClickedBookClub}
+                                        handleAddMember={handleAddMember}
+                                        clickedBookClub={clickedBookClub}
+                                        modalActiveBookClub={modalActiveBookClub}
+                                        deactivateModalBookClub={deactivateModalBookClub}
+                                    />
                                 }
 
-                                    {/* {
-                                        suggestedBookClubs && <SuggestionCard suggestions={suggestions} handleShowMembers={(id) => handleShowMembers(id)} handleAddMember={(id) => handleAddMember(id)}
-                                        suggestedBookClubs={suggestedBookClubs} />
-                                    } */}
                             </div>
 
                         </section>
 
-                        <button className="button" onClick={activateModalCreateBookClub}>Ny bokklubb</button>
+                        <button className="button" onClick={activateModalCreateBookClub}>NY BOKKLUBB</button>
                         <section className="bottomContainer">
                             <div className="containerLowerInfo">
-                                {/* {
-                                    clickedBookClub.members && clickedBookClub.members.map(member => (
-                                        <div key={member._id} className="container-members">
-                                            <p className="title">{member.username}</p>
-                                            <div className="line"></div>
-                                            <p className="title">{member.name}</p>
-                                            <p className="title">{member.gender}</p>
-                                            <p className="title">{member.area}</p>
-                                        </div>
-
-                                    ))
-
-                                } */}
                             </div>
                         </section>
-                    </div>
                     {
-                        modalCreateBookClub && 
-                            <ModalCreateBookClub 
-                                bookClubTitle={bookClubTitle} 
-                                deactivateModalModalCreateBookClub={deactivateModalModalCreateBookClub}
-                                // deactivateModal={deactivateModal}  
-                                handleChange={handleChange} 
-                                input={input} 
-                                handleCreateNewBookClub={handleCreateNewBookClub} 
-                            />
+                        modalCreateBookClub &&
+                        <ModalCreateBookClub
+                            bookClubTitle={bookClubTitle}
+                            deactivateModalCreateBookClub={deactivateModalCreateBookClub}
+                            // deactivateModal={deactivateModal}  
+                            handleChange={handleChange}
+                            input={input}
+                            handleCreateNewBookClub={handleCreateNewBookClub}
+                        />
                     }
+                    </div>
                 </main>
             }
         </>
     )
 }
+
+
+
+
 
 
 

@@ -4,47 +4,44 @@ import ModalBookClub from './ModalBookClub';
 
 
 export default function Card ({ 
-            membersBookClubs, 
-            handleShowMembers, 
             suggestions, 
             handleClickedBookClub, 
             clickedBookClub ,
             modalActiveBookClub,
             setModalActiveBookClub,
-            deactivateModalBookClub
+            deactivateModalBookClub,
+            handleAddMember
         }) 
     {
-
     return (
         <>
             {
-                suggestions && suggestions.map(bookClubs => {
+                suggestions && suggestions.map(bookClub => {
                     return (
-                        <div className="containerBookClub" key={bookClubs._id} onClick={() => handleClickedBookClub(bookClubs)}>
-                            <div className="containerInfo">
-                                <p className="book-title" >{bookClubs.name}</p>
+                        <div className="containerBookClub" key={bookClub._id} >
+                            <div className="containerInfo" onClick={() => handleClickedBookClub(bookClub)} value={bookClub}>
+                                <p className="book-title" >{bookClub.name}</p>
                                 <div className="group">
                                     <p>medlemmar</p>
-                                    <p>{bookClubs.members.length}</p>
+                                    <p>{bookClub.members.length}</p>
                                 </div>
                                 <div className="line"></div>
-                                {/* <div className="containerButton">
-                                    <button className="button" onClick={(e) => handleShowMembers(bookClubs)} >visa medlemmar.</button>
-                                </div> */}
                                 <div className="group">
                                     <p>kategori</p>
                                     
-                                    <p>{bookClubs.category}</p>
+                                    <p>{bookClub.category}</p>
                                 </div>
                                 <div className="line"></div>
                             </div>
                             {
                                 modalActiveBookClub && 
                                     <ModalBookClub 
-                                        bookClubs={bookClubs}
+                                        suggestions={suggestions}
+                                        bookClub={bookClub}
                                         clickedBookClub={clickedBookClub}
                                         setModalActiveBookClub={setModalActiveBookClub}
                                         deactivateModalBookClub={deactivateModalBookClub}
+                                        handleAddMember={handleAddMember}
                                     />
                             }
                         </div>

@@ -3,7 +3,7 @@
 // font-family: 'Source Sans Pro', sans-serif;
 
 $fontSize: 16px;
-$backgroundColorButton: #edda99;
+$backgroundColorButton: #3E6770;
 $colorText: #141418;
 $backgroundColorDark: #141418;
 $backgroundColorLight: #ece9df;
@@ -13,16 +13,16 @@ $lineColor: #f5eed5;
     display: flex;
     height: 100vh;
     position: relative;
-    .container-front {
+    .container-left {
         width: 65%;
         height: auto;
     
         background-image: url(../assets/book.jpg);
         background-size: cover;    
     }
-    .container2-front {
+    .container-right {
         width: 35%;
-        background-color: #edda99;
+        background-color: #ECE9DF;
         height: 100vh;
 
     }
@@ -34,8 +34,8 @@ $lineColor: #f5eed5;
     width: calc(100% - 80px);
     height: 3px;
     position: absolute;
-    margin: 10px 40px;
-    background-color: $lineColor;
+    margin: 58px 40px;
+    background-color: #C98433;
     // border-radius: 9px;
 }
 
@@ -68,7 +68,6 @@ $lineColor: #f5eed5;
         right: 40px;
         
         section {
-            border-bottom: 1px solid white;
             margin-right: 10px;
             a {
                 text-decoration: none;

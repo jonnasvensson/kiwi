@@ -8,7 +8,7 @@ import { Redirect } from 'react-router-dom';
 
 
 
-export default function Main () {
+export default function Main ({}) {
     const { userId, setUserId } = useContext(UserIdContext);
     
     useEffect(() => {

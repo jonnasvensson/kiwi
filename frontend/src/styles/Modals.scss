@@ -1,0 +1,90 @@
+$fontSize: 16px;
+$backgroundColorButton: #3E6770;
+$colorText: #141418;
+$backgroundColorDark: #141418;
+$backgroundColorLight: #ece9df;
+$lineColor: #f5eed5;
+
+
+#react-aria-modal-dialog {
+    width: 80%;
+}
+
+.modal {
+    background-color: white;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 9px;
+    padding: 20px;
+}
+
+.modal-body {
+    width: 100%;
+    height: 100%;
+    // .title {
+    //     font-family: "Source Sans Pro";
+    //     font-size: 24px;
+    // }
+    .input {
+        border-top-left-radius: 9px;
+        border-top-right-radius: 9px;
+        border: 1px solid var(--color-border);
+        border-bottom: solid $backgroundColorButton;
+        background-color: $lineColor;
+        height: 36px;
+        width: 100%;
+        box-sizing: border-box;
+        margin: 36px 0 35px 0;
+        font-size: $fontSize;
+        color: $colorText;
+        font-family: "Rubik";
+        padding-left: 11px;
+        &:focus {
+            font-size: $fontSize;
+            color: var(--color-text);
+            font-family: "Rubik";
+        }
+        &::placeholder {
+            font-size: $fontSize;
+            color: $colorText;
+            font-family: "Rubik";
+        }
+    }
+
+    .group {
+        border-bottom: 1px solid $backgroundColorButton;
+        padding: 20px 10px 0 10px;
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+.modal-footer {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.container-button {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    margin-top: 20px;
+    .button {
+        background: #ffffff;
+        border: none;
+        border-radius: 9px;
+        color: #ffffff;
+        font-size: 21px;
+        font-family: "Source Sans Pro";
+        cursor: pointer;
+        padding: 10px;
+        background-color: $backgroundColorButton;
+        height: fit-content;
+    }
+}
+

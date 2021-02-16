@@ -1,3 +1,6 @@
+$backgroundColorButton: #3E6770;
+
+
 .outer-container {
     opacity: 0.5;
     width: 100%;
@@ -27,9 +30,8 @@
         width: 100%;
         margin: 20px;
         .button {
-            width: 109px;
             height: 36px;
-            background: #ECDB9E;
+            background: $backgroundColorButton;
             border: none;
             border-radius: 9px;
             color: black;
@@ -37,6 +39,7 @@
             font-family: "Source Sans Pro";
             cursor: pointer;
             margin: 5px;
+            color: #ffffff;
         }
         
     }

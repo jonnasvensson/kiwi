@@ -32,7 +32,7 @@ app.put('/bookClubs/:bookclubId', async (req, res) => {
     let bookClubId = req.params.bookclubId
     console.log(bookClubId);
     let updatedBookClub = {
-        name: req.body.name,
+        // name: req.body.name,
         members: req.body.members,
         // _id: req.body._id
     };
