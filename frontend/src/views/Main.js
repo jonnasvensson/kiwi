@@ -4,9 +4,6 @@ import MiddleMain from '../components/MiddleMain'
 import { UserIdContext } from '../UserContext';
 import { Redirect } from 'react-router-dom';
 
-// styling ligger i App.scss
-
-
 
 export default function Main ({}) {
     const { userId, setUserId } = useContext(UserIdContext);

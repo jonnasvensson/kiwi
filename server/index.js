@@ -11,10 +11,25 @@ app.use(bodyParser.json())
 
 const MONGODB = require('./db/index');
 
+
+
+app.get('/users', async (req, res) => {
+    const data = await MONGODB.getAllUsers();
+    !data ? res.status(500).end() : res.status(200).send(data);
+})
+
+app.get('/user/:userId', async (req, res) => {
+    let userId = req.params.userId;
+    const data = await MONGODB.getUser(userId);
+    !data ? res.status(500).end() : res.status(200).send(data);
+});
+
+
 app.get('/bookclubs', async (req, res) => {
     const data = await MONGODB.getBookClubs();
     !data ? res.status(500).end() : res.status(200).send(data);
 });
+
 
 app.post('/bookclubs', async (req, res) => {
     let bookClub = {
@@ -28,29 +43,6 @@ app.post('/bookclubs', async (req, res) => {
     const data = await MONGODB.createBookClub(bookClub);
     !data ? res.status(500).send() : res.status(201).send(data);
 })
-app.put('/bookClubs/:bookclubId', async (req, res) => {
-    let bookClubId = req.params.bookclubId
-    console.log(bookClubId);
-    let updatedBookClub = {
-        // name: req.body.name,
-        members: req.body.members,
-        // _id: req.body._id
-    };
-    const data = await MONGODB.addMemberToBookClub(bookClubId, updatedBookClub);
-    !data ? res.status(500).send() : res.status(201).send(data);
-})
-
-
-app.get('/users', async (req, res) => {
-    const data = await MONGODB.getAllUsers();
-    !data ? res.status(500).end() : res.status(200).send(data);
-})
-
-app.get('/user/:userId', async (req, res) => {
-    let userId = req.params.userId;
-    const data = await MONGODB.getUser(userId);
-    !data ? res.status(500).end() : res.status(200).send(data);
-});
 
 
 app.post('/login', async (req, res) => {
@@ -86,30 +78,36 @@ app.post('/register', async (req, res) => {
     };
     const data = await MONGODB.register(user);
     !data ? res.status(500).send() : res.status(200).send(data);
-
 })
 
-app.listen(apiPort, () => console.log(`Server running on port ${apiPort}`))
-
-
-
-
-
-
-
-
-
-
-
-
-
-// const MONGODB = require('./db/index').mongoURI // object som kommer frpn index i db därav kan jag skriva .mongoURI
-
-// mongoose
-//     .connect(
-//         MONGODB,
-//         { useNewUrlParser: true }
-//     )
-//     .then(() => console.log('MongoDB connected'))
-//     .catch(error => console.error(error));
+app.put('/bookClubs/:bookclubId', async (req, res) => {
+    let bookClubId = req.params.bookclubId;
+    let member = req.body.member;
     
+    let updatedBookClub = {
+        members: req.body.members,
+    };
+    let data; 
+    if (member) {
+        data = await MONGODB.removeMemberFromBookClub(bookClubId, member);
+    }
+    if (updatedBookClub === null ) {
+        data = await MONGODB.addMemberToBookClub(bookClubId, updatedBookClub);
+    }
+    !data ? res.status(500).send() : res.status(201).send(data);    
+})
+
+app.put('/users/:userId', async (req, res) => {
+    let userId = req.params.userId
+    let imgUser = {
+        img: req.body.img,
+    };
+    console.log(imgUser);
+    const data = await MONGODB.addImgUser(userId, imgUser);
+    !data ? res.status(500).send() : res.status(201).send(data);
+})
+
+
+
+
+app.listen(apiPort, () => console.log(`Server running on port ${apiPort}`))

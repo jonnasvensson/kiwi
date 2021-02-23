@@ -10,8 +10,7 @@ export default function Login() {
     return (
         <>
             <LoginForm />
-            <div className="bottom-line"></div>
-            <div className="wrapper"></div>
+            {/* <div className="bottom-line"></div> */}
         </>
     )
 }

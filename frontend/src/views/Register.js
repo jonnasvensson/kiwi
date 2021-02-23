@@ -1,18 +1,14 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import '../styles/Register.scss';
-import { areaOneApi, areaTwoApi, areaThreeApi, registerUserApi, allUsersApi, bookClubsApi } from '../assets/axiosURLs'
-import { BookClubsContext } from '../UserContext';
+import { areaOneApi, areaTwoApi, areaThreeApi, registerUserApi } from '../assets/axiosURLs'
 import ModalUserCreated from '../components/ModalUserCreated';
 
 
 
 export default function Register() {
-    const { bookClubs, setBooksClubs } = useContext(BookClubsContext);
 
     const [allAreas, setAllAreas] = useState([]);
-    const [allUsers, setAllUsers] = useState([]);
     const [input, setInput] = useState({
         username: '',
         password: '',
@@ -30,15 +26,11 @@ export default function Register() {
     const [error, setError] = useState(false);
     const [errorPassword, setErrorPassword] = useState(false);
     const [errorBookClub, setErrorBookClub] = useState(false);
-    const [usersInBooklub, setUsersInBookClub] = useState([]);
-    const [googleBooks, setgoogleBooks] = useState([]);
     const [modalActive, setModalActive] = useState(false)
 
 
     useEffect(() => {
         getAreaAPI();
-        getUsers();
-        // getBooks();
     }, [])
 
     const activateModal = () => {
@@ -49,55 +41,8 @@ export default function Register() {
         setModalActive(false);
     }
 
-    // const createBookClub = (members) => {
-
-    //     let bookClub = {
-    //         name: randomTitle(googleBooks),
-    //         area: selectArea,
-    //         gender: input.gender,
-    //         age: selectAge,
-    //         category: categories,
-    //         members: members
-    //     }
-
-    //     let selectedValue = bookClub.category.find(value => value)
-    //     let y = bookClubs.filter(bookClub => {
-    //         let i = bookClub.category.find(value => {
-    //             return value === selectedValue
-    //         })
-    //         if (i === null) {
-    //             console.log(i);
-    //             return
-    //         }
-    //         if (i) {
-    //             return bookClub
-    //         }
-    //         return i
-    //     })
-
-    //     let mapped = y.map(bookClubs => {
-    //         return bookClubs
-    //     })
-    //         .filter(bookClubsfilter => {
-    //             let x = bookClubsfilter.members.length
-    //             if (x < 10) {
-    //                 return bookClubsfilter
-    //             }
-    //             else {
-    //                 return
-    //             }
-    //         })
-
-    //     if (categories) {
-    //         axios
-    //             .post(bookClubsApi, bookClub)
-    //             .then((res) => { })
-    //             .catch(error => console.error(error));
-    //     }
-    // }
-
     const postAxiosUser = () => {
-        let usersFromMatching = matchingUsers();
+        // let usersFromMatching = matchingUsers();
 
         const user = {
             username: input.username,
@@ -113,17 +58,7 @@ export default function Register() {
         }
         axios
             .post(registerUserApi, user)
-            .then((res) => {
-                // let newArray = [...usersFromMatching, ...res.data.ops]
-                // setUsersInBookClub([...res.data.ops, ...usersFromMatching])
-                // if (newArray.length >= 2) {
-                //     createBookClub(newArray);
-                //     console.log('bokklubb skapad');
-                // } else {
-                //     console.log('Bokklubb not created');
-                //     return
-                // }
-            })
+            .then(() => {})
             .catch(err => {
                 console.error(err);
             })
@@ -145,7 +80,6 @@ export default function Register() {
             }
             if (input.password === input.repeatPassword) {
                 setErrorPassword(false);
-                matchingUsers();
                 if (categories.length >= 1) {
                     postAxiosUser();
                 }
@@ -162,88 +96,7 @@ export default function Register() {
     }
 
 
-    const randomTitle = (title) => {
-        return title[Math.floor(Math.random() * title.length)]
-    }
 
-    // const getBooks = () => {
-    //     axios
-    //         .get('https://www.googleapis.com/books/v1/volumes?q=intitle:holiday&maxResults=40')
-    //         .then(resp => {
-    //             setgoogleBooks(resp.data.items.map(item => item.volumeInfo.title))
-    //         })
-    // }
-
-
-    const findBookClub = () => {
-        let x = bookClubs && bookClubs.filter(bookClub => bookClub)
-        .filter(bookClub => bookClub.area === selectArea)
-        .filter(bookClub => bookClub.gender === input.gender)
-        .filter(bookClub => bookClub.age === selectAge)
-        .filter(bookClub => {
-            let categoryMatch = bookClub.category.find((value, index) => {
-                return value === categories[index];
-            })
-            if (categoryMatch == null) {
-                return
-            }
-            if (categoryMatch) {
-                return bookClub;
-            }
-            return bookClub;
-        })
-        // console.log(x);
-    }
-    findBookClub();
-
-
-    const matchingUsers = (mappedUser) => {
-        mappedUser = allUsers.map(user => user)
-            .filter(user => user.area === selectArea)
-            .filter(user => user.gender === input.gender)
-            .filter(user => user.age === selectAge)
-
-            .filter(user => {
-                let categoryMatch = user.categories.find((category, index) => {
-                    return category === categories[index];
-                })
-                if (categoryMatch == null) {
-                    return
-                }
-                if (categoryMatch) {
-                    return user;
-                }
-                return user;
-            })
-            .filter(user => {
-                let meetUpTimeMatch = user.meetUpTimes.find((meetUpTime, index) => {
-                    return meetUpTime === meetUpTimes[index];
-                })
-                if (meetUpTimeMatch) {
-                    return user
-                }
-                return user;
-            })
-            .filter(user => {
-                let readLanguageMatch = user.readLanguages.find((readLanguage, index) => {
-                    return readLanguage === readLanguages[index];
-                })
-                if (readLanguageMatch) {
-                    return user
-                }
-                return user;
-            })
-            .filter(user => {
-                let speakLanguageMatch = user.speakLanguages.find((speakLanguage, index) => {
-                    return speakLanguage === speakLanguages[index];
-                })
-                if (speakLanguageMatch) {
-                    return user
-                }
-                return user;
-            })
-        return mappedUser
-    }
 
     const getAreaAPI = () => {
         axios.all([
@@ -261,19 +114,7 @@ export default function Register() {
             .catch(errors => console.error(errors));
     }
 
-    const getUsers = () => {
-        axios
-            .get(allUsersApi)
-            .then(res => {
-                setAllUsers(res.data)
-            })
-            .catch(err => {
-                console.error(err);
-            })
-    }
-
     const handleChangeInput = (e) => {
-        // hanterar inputs och radiobuttons for gender
         const target = e.target;
         const value = target.type === "checkbox" ? target.checked : target.value;
         const name = target.name;
@@ -321,7 +162,6 @@ export default function Register() {
         if (checked) {
             setMeetUpTimes([...meetUpTimes, value]);
         } else {
-            // nedan gör att om man klickar ur checkbxen så ändras värdet
             let filteredmeetUpTimes = meetUpTimes.filter(meetUpTime => meetUpTime !== value);
             return setMeetUpTimes(filteredmeetUpTimes);
         }
@@ -359,14 +199,6 @@ export default function Register() {
 
     return (
         <>
-            <div className="wrapper">
-                <div className="containerImg">
-                    {/* <div className="imgWrapper">
-                        <img className="img" srcSet={img} alt="bok och blommor"/>
-                    </div> */}
-                </div>
-            </div>
-
             <form className="register-container" onSubmit={handleSubmit} >
                 <input
                     className="input"
@@ -439,14 +271,14 @@ export default function Register() {
                         <input
                             type="radio"
                             name="gender"
-                            value='kvinna'
+                            value='Kvinna'
                             onChange={handleChangeInput}
                         />
                         <label>Kvinna</label>
                         <input
                             type="radio"
                             name="gender"
-                            value='man'
+                            value='Man'
                             onChange={handleChangeInput}
                         />
                         <label>Man</label>

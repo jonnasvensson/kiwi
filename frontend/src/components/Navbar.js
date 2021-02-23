@@ -1,19 +1,39 @@
-import React, { useContext, useEffect, useState } from 'react';
-// import { BrowserRouter as Router, Route, useParams } from "react-router-dom";
+import React, { useContext } from 'react';
 import '../styles/Navbar.scss'
+import { UserContext,  } from '../UserContext';
 
 
-export default function Navigation({ 
-    handleLogout
+export default function Navigation({
+    handleLogout,
+    handleToggle,
+    
 }) {
-
+    const { user, setUser } = useContext(UserContext);
 
     return (
         <>
             <nav className="container-navigation">
-                <button className="button">PROFIL</button>
-                <button className="button">BOKKLUBBAR</button>
-                <button className="button" onClick={handleLogout}>LOGGA UT</button>
+                <div className="user-container">
+                    <div className="group">
+                        <div className="circle"></div>
+                        <p className="title">{user.username}</p>
+                    </div>
+                </div>    
+                <div className="group">
+                    <button 
+                        className="button-nav"
+                        value="profile" 
+                        onClick={handleToggle}
+                        >PROFIL</button>
+                    <button 
+                        className="button-nav"
+                        value="bookClubs" 
+                        onClick={handleToggle}
+                    >BOKKLUBBAR</button>
+                </div>
+                <div className="button-container">
+                    <button className="button" onClick={handleLogout}>LOGGA UT</button>
+                </div>
             </nav>
         </>
     )

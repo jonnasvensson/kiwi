@@ -1,7 +1,56 @@
+$beige: #ece9df;
+$orange: #C98433;
+$orange2: #FE9F30;
 
 .container-navigation {
     display: flex;
-    justify-content: flex-end;
-    border-bottom: 1px solid grey;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: $beige;
+    border-radius: 9px;
+    height: 130px;
+    width: calc(100% - 60px);
+    padding: 30px;
+    .group {
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        .button-nav {
+            border: none;
+            margin: 10px;
+            background-color: $beige;
+            font-family: 'Source Sans Pro';
+            cursor: pointer;
+            font-size: 18px;
+        }
+    }
+
+    .user-container {
+        height: 100%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+        .group {
+            display: flex;
+            .circle {
+                height: 80px;
+                width: 80px;
+                border-radius: 50%;
+                background-color:  black;
+            }
+            .title {
+                font-size: 24px;
+            }
+        }
+
+    }
+
+    .button-container {
+        height: 100%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-start;
+        cursor: pointer;
+    }
 }
 

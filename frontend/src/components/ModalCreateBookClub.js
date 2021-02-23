@@ -30,6 +30,8 @@ export default function ModalCreateBookClub({
                     <div className="container-button">
                         <button className="button" onClick={deactivateModalCreateBookClub} >X</button>
                     </div>
+                    <div className="book-club-info">
+
                     <h2>Vad kul!</h2>
                     <p>Bokklubb kommer att skapas med nedan detaljer</p>
                     <input className="input" type="text" onChange={handleChange} value={input} placeholder={bookClubTitle}/>
@@ -51,6 +53,8 @@ export default function ModalCreateBookClub({
                             return <p key={category}>{category}</p>
                         })}
                     </div>
+                    </div>
+
 
                 </div>
                 <footer className="modal-footer">

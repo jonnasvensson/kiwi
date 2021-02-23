@@ -1,15 +1,14 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import AriaModal from 'react-aria-modal';
 import '../styles/Modals.scss';
-// import axios from 'axios';
-// import { Link } from 'react-router-dom';
-import { UserContext, UserIdContext, BookClubsContext } from '../UserContext';
+import { UserContext } from '../UserContext';
 
 
 export default function ModalBookClub({
     deactivateModalBookClub,
     clickedBookClub,
-    handleAddMember
+    handleAddMember,
+    handleLeaveBookClub
 }) {
     const { user, setUser } = useContext(UserContext);
 
@@ -33,32 +32,49 @@ export default function ModalBookClub({
                     <div className="container-button">
                         <button className="button" onClick={deactivateModalBookClub}>X</button>
                     </div>
-                    <h2>{clickedBookClub.name}</h2>
-                    <p>{clickedBookClub.username}</p>
-                    <p>{clickedBookClub.area}</p>
-                    <p>{clickedBookClub.gender}</p>
-                    <p>{clickedBookClub.age}</p>
-                    
-                    {
-                        clickedBookClub.category.map((category) => { 
-                            return  <p key={category}>{category}</p>
-                        })
-                    }
+                    <div className="book-club-info">
+                        <h2>{clickedBookClub.name}</h2>
+                        {
+                            clickedBookClub.category.map((category) => { 
+                                return  <p key={category}>{category}</p>
+                            })
+                        }
+                        <div className="group">
+                            <p>kommun</p>
+                            <p>{clickedBookClub.area}</p>
+                        </div>
+                        <div className="group">
+                            <p>kön</p>
+                            <p>{clickedBookClub.gender}</p>
+                        </div>
+                        <div className="group">
+                            <p>ålder</p>
+                            <p>{clickedBookClub.age}</p>
+                        </div>
+                        
+                    </div>
                 </div>
                 <footer className="modal-footer">
                     {
                         clickedBookClub.members.map(member => {
                             return (
-                                <div key={member._id} className="containerBookClub">
-                                    <p>{member.username}</p>
+                                <div key={member._id} className="container-member">
+                                    <p className="title">{member.username}</p>
                                     {
-                                        member.categories.map(category => {
-                                            return <p key={category}>{category}</p>
+                                        member.categories && member.categories.map(category => {
+                                            return <p className="title" key={category}>{category}</p>
                                         })
                                     }
                                 </div>
                             )
                         })
+                    }
+                    {
+                        renderButton &&
+                            <div className="container-button">
+                                <button className="button" onClick={handleLeaveBookClub}>Lämna bokklubb</button>
+                            </div>
+                    
                     }
                     {
                         renderButton == null ?

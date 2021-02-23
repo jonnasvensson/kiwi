@@ -38,12 +38,32 @@ async function getBookClubs() {
 }
 
 async function addMemberToBookClub(bookClubId, updatedBookClub) {
-  console.log('ID', bookClubId);
-  console.log('updated', updatedBookClub);
   try {
     const result = await db
     .collection('bookClubs')
     .findOneAndUpdate( {_id: ObjectId(bookClubId) }, { $set: updatedBookClub })
+    return result;
+  } catch {
+      throw error;
+  }
+}
+
+async function addImgUser(userId, imgUser) {
+  try {
+    const result = await db
+    .collection('users')
+    .findOneAndUpdate( {_id: ObjectId(userId) }, { $set: imgUser })
+    return result;
+  } catch {
+      throw error;
+  }
+}
+
+async function removeMemberFromBookClub(bookClubId, member) {
+  try {
+    const result = await db
+    .collection('bookClubs')
+    .findOneAndUpdate( {_id: ObjectId(bookClubId) }, { $pull: { 'members': {_id: member } } }, true )
     return result;
   } catch {
       throw error;
@@ -102,4 +122,6 @@ module.exports.getUser = getUser;
 module.exports.postUser = postUser;
 module.exports.register = register;
 module.exports.addMemberToBookClub = addMemberToBookClub;
+module.exports.addImgUser = addImgUser;
+module.exports.removeMemberFromBookClub = removeMemberFromBookClub;
 

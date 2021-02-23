@@ -1,20 +1,34 @@
 $backgroundColorButton: #3E6770;
+$orange: #C98433;
 
-.containerBookClub {
-    border: 2px solid $backgroundColorButton;
+
+.container-book-club {
+    border: 2px solid #000000;
     border-radius: 9px;
-    padding: 19px;
-    margin: 0 10px;
-    cursor: pointer;
-
-    .containerInfo {
+    margin: 10px;
+    width: 200px;
+    .container-info {
+        margin: 20px;
+        cursor: pointer;
+        height: 140px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
         .book-title {
             font-family: "Source Sans Pro", sans-serif;
             font-size: 24px;
-            margin-bottom: 19px;
             border-bottom: solid grey;
+            text-overflow: ellipsis;
+
+            white-space: nowrap;
+            overflow: hidden;    
+        
         }
-        .group {
+        .group-lower {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        .group-info {
             display: flex;
             justify-content: space-between;
             p:first-child {
@@ -26,6 +40,7 @@ $backgroundColorButton: #3E6770;
                 font-weight: 600;
             }
         }
+    }
         .containerButton {
             display: flex;
             justify-content: flex-end;
@@ -37,7 +52,7 @@ $backgroundColorButton: #3E6770;
                 border: none;
                 border-radius: 6px;
                 color: var(--background-color-loginForm);
-                font-size: 12px;
+                font-size: 18px;
                 font-family: "Source Sans Pro";
                 cursor: pointer;
             }

@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Link, Redirect, useHistory } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import '../styles/LoginForm.scss'
 import { UserIdContext } from '../UserContext';
 import axios from 'axios';
@@ -49,7 +49,6 @@ export default function LoginForm() {
     return (
         <>
             <div className="container-form">
-                {/* <div className="side-line"></div> */}
                     <form onSubmit={handleSubmit}>
                         <input
                             className="input"
@@ -77,9 +76,6 @@ export default function LoginForm() {
                             />
                         </div>
                     </form>
-                    {/* <div className="container-link">
-                        <Link to="/registrera">registrera</Link>
-                    </div> */}
                 </div>
                 {
                     userId && <Redirect to="/main" />

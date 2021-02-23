@@ -28,54 +28,32 @@ $lineColor: #f5eed5;
     }
 }
 
-// styling views
-
-.bottom-line {
-    width: calc(100% - 80px);
-    height: 3px;
-    position: absolute;
-    margin: 58px 40px;
-    background-color: #C98433;
-    // border-radius: 9px;
-}
-
-.wrapper {
-    // width: 65%;
-    // height: auto;
-
-    // background-image: url(../assets/book.jpg);
-    // background-size: cover;
-    .containerImg {
-        // .imgWrapper {
-        //     width: 100%;
-        //     height: 100%;
-        //     img {
-        //         width: 100%;
-        //         height: 100vh;
-        //         object-fit: cover;
-        //     }
-        // }
-    }
-}
 
     .navbar {
         display: flex;
+        flex-direction: column;
         justify-content: flex-end;
+        align-items: flex-end;
         margin-top: 30px;
-        width: 100%;
+        width: calc(100% - 180px);
         height: fit-content;
         position: absolute;
-        right: 40px;
-        
+        padding: 0 90px;
         section {
-            margin-right: 10px;
+            
             a {
                 text-decoration: none;
-                color: black;
+                color: #C98433;
                 font-size: 24px;
-                margin: 10px;
+                margin: 0 20px;
             }
         }
+        .bottom-line {
+            height: 3px;
+            background-color: #C98433;
+            width: 100%;
+
+        }        
     }
 
 
@@ -94,22 +72,22 @@ $lineColor: #f5eed5;
 }
 
 
-@media (max-width: 1200px) {
-    .navbar {
-        section {
-            a:first-child {
-                color: white;
-            }
-        }
-    }
-}
+// @media (max-width: 1200px) {
+//     .navbar {
+//         section {
+//             a:first-child {
+//                 color: white;
+//             }
+//         }
+//     }
+// }
 
-@media (max-width: 890px) {
-    .navbar {
-        section {
-            a:nth-child(2) {
-                color: white;
-            }
-        }
-    }
-}
+// @media (max-width: 890px) {
+//     .navbar {
+//         section {
+//             a:nth-child(2) {
+//                 color: white;
+//             }
+//         }
+//     }
+// }

@@ -13,28 +13,25 @@ import { UserContext, UserIdContext, BookClubsContext } from './UserContext';
 import { userApi, bookClubsApi } from './assets/axiosURLs'
 import Navigation from './components/Navigation';
 
-
-
-
 function App() {
   const [userId, setUserId] = useState(null);
   const [user, setUser] = useState({});
-  const [bookClubs, setBooksClubs] = useState(null);
+  // const [bookClubs, setBooksClubs] = useState([]);
 
-  useEffect(() => {
+//   useEffect(() => {
 
-    const fetchData = async () => {
-        try {
-            const resp = await axios.get(bookClubsApi)
-            const data = setBooksClubs(resp.data)
+//     const fetchData = async () => {
+//         try {
+//             const resp = await axios.get(bookClubsApi)
+//             const data = setBooksClubs(resp.data)
 
-        } catch (error) {
-            console.error(error);
-        }
-    }
+//         } catch (error) {
+//             console.error(error);
+//         }
+//     }
 
-    fetchData();
-}, [])
+//     fetchData();
+// }, [])
 
 
 
@@ -46,17 +43,14 @@ function App() {
         </div>
       <div className="container-right">
       </div>
-        {/* <Aside /> */}
-
-        {/* kan /main göras till att bli username i URL */}
         <UserIdContext.Provider value={{ userId, setUserId }} >
-          <BookClubsContext.Provider value={{ bookClubs, setBooksClubs }}>
+          {/* <BookClubsContext.Provider value={{ bookClubs, setBooksClubs }}> */}
             <UserContext.Provider value={{ user, setUser }}>
               <Route exact path="/" component={Login} />
               <Route path="/main" component={Main} />
             </UserContext.Provider>
             <Route path="/registrera" component={Register} />
-          </BookClubsContext.Provider>
+          {/* </BookClubsContext.Provider> */}
         </UserIdContext.Provider>
       </Router>
     </div>

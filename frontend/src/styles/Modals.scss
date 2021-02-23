@@ -4,30 +4,59 @@ $colorText: #141418;
 $backgroundColorDark: #141418;
 $backgroundColorLight: #ece9df;
 $lineColor: #f5eed5;
+$orange2: #FE9F30;
 
 
 #react-aria-modal-dialog {
-    width: 80%;
+    width: 90%;
+    height: 90%;
 }
 
 .modal {
     background-color: white;
-    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     border-radius: 9px;
-    padding: 20px;
+}
+
+.modal-register {
+    width: 50%;
+    height: 40%;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 9px;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    .modal-body-register {
+        .title {
+            font-weight: 600;
+            font-size: 24px;
+        }
+
+    }
 }
 
 .modal-body {
     width: 100%;
     height: 100%;
+
     // .title {
     //     font-family: "Source Sans Pro";
     //     font-size: 24px;
     // }
+    .book-club-info{
+        width: calc(100% - 40px);
+        margin: 20px;
+
+    }
     .input {
         border-top-left-radius: 9px;
         border-top-right-radius: 9px;
@@ -63,27 +92,39 @@ $lineColor: #f5eed5;
 }
 
 .modal-footer {
-    width: 100%;
+    width: calc(100% - 40px);
     display: flex;
     flex-wrap: wrap;
-    margin-top: 20px;
+    justify-content: center;
+    margin: 20px;
+    .container-member {
+        border: 2px solid #000000;
+        border-radius: 9px;
+        padding: 20px;
+        margin: 5px;
+        .title:first-child {
+            border-bottom: 1px solid orange;
+        }
+        .title {
+            margin: 5px;
+        }
+    }
 }
 
 .container-button {
     display: flex;
     justify-content: flex-end;
-    width: 100%;
-    margin-top: 20px;
+    width: calc(100% - 40px);
+    margin: 20px;
     .button {
-        background: #ffffff;
+        background: $orange2;
         border: none;
         border-radius: 9px;
-        color: #ffffff;
-        font-size: 21px;
+        color: #000000;
+        font-size: 18px;
         font-family: "Source Sans Pro";
         cursor: pointer;
         padding: 10px;
-        background-color: $backgroundColorButton;
         height: fit-content;
     }
 }

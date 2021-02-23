@@ -17,8 +17,8 @@ export default function ModalUserCreated({
             underlayClickExits={false}
             verticallyCenter={true}
         >
-            <div id="demo-two-modal" className="modal">
-                <div className="modal-body">
+            <div id="demo-two-modal" className="modal-register">
+                <div className="modal-body-register">
                     <p className="title">Vad kul! Du är nu medlem hos oss</p>
 
                 </div>

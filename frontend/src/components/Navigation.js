@@ -1,7 +1,9 @@
-import react from 'react';
+import react, { useState } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 export default function Navigation() {
+
+
     return (
         <>
             <nav className="navbar">
@@ -10,6 +12,7 @@ export default function Navigation() {
                     <Link to="/">LOGGA IN</Link>
                     <Link to="/registrera">REGISTRERA</Link>
                 </section>
+                <div className="bottom-line"></div>
             </nav>
         </>
     )
