@@ -1,7 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { UserContext, UserIdContext, BookClubsContext } from '../UserContext';
+import React, { useContext, useState } from 'react';
+import { UserContext } from '../UserContext';
 import axios from 'axios';
-import book from '../assets/book.jpg'
 
 export default function Profile({ }) {
     const { user, setUser } = useContext(UserContext);

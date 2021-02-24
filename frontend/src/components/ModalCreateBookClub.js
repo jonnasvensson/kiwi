@@ -1,9 +1,7 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import AriaModal from 'react-aria-modal';
 import '../styles/Modals.scss';
-import axios from 'axios';
-// import { Link } from 'react-router-dom';
-import { UserContext, UserIdContext, BookClubsContext } from '../UserContext';
+import { UserContext } from '../UserContext';
 
 
 

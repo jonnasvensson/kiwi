@@ -18,7 +18,34 @@ $lineColor: #f5eed5;
         height: auto;
     
         background-image: url(../assets/book.jpg);
-        background-size: cover;    
+        background-size: cover;
+        display: flex;
+        .container-title-unions {
+            .title {
+                font-size: 64px;
+                font-weight: 600;
+                color: white;
+                transform: rotate(-90deg);
+                position: absolute;
+                left: -100px;
+                top: 240px;
+
+            }    
+            .collection-unions {
+                position: absolute;
+                left: 40px;
+                top: 460px;
+                .group {
+                    .union {
+                        margin-right: 5px;
+                    }
+                    .union-opp {
+                        transform: rotate(-180deg);
+                        margin-right: 5px;
+                    }
+                }
+            }
+        }
     }
     .container-right {
         width: 35%;
@@ -28,17 +55,16 @@ $lineColor: #f5eed5;
     }
 }
 
-
     .navbar {
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
         align-items: flex-end;
         margin-top: 30px;
-        width: calc(100% - 180px);
+        width: calc(100% - 80px);
         height: fit-content;
         position: absolute;
-        padding: 0 90px;
+        padding: 0 40px;
         section {
             
             a {
@@ -49,7 +75,7 @@ $lineColor: #f5eed5;
             }
         }
         .bottom-line {
-            height: 3px;
+            height: 1px;
             background-color: #C98433;
             width: 100%;
 

@@ -205,7 +205,6 @@ export default function MiddleMain({ }) {
     }
 
     const suggestions = findBookClubsBasedOnCriterias();
-    console.log(suggestions);
 
 
     return (

@@ -83,15 +83,17 @@ app.post('/register', async (req, res) => {
 app.put('/bookClubs/:bookclubId', async (req, res) => {
     let bookClubId = req.params.bookclubId;
     let member = req.body.member;
-    
     let updatedBookClub = {
         members: req.body.members,
     };
+    console.log(updatedBookClub);
     let data; 
     if (member) {
         data = await MONGODB.removeMemberFromBookClub(bookClubId, member);
     }
-    if (updatedBookClub === null ) {
+    if (updatedBookClub === null) {
+        return
+    } else if (updatedBookClub) {
         data = await MONGODB.addMemberToBookClub(bookClubId, updatedBookClub);
     }
     !data ? res.status(500).send() : res.status(201).send(data);    
