@@ -181,7 +181,7 @@ export default function MiddleMain({ }) {
         };
 
         axios
-            .put(`http://localhost:5000/bookClubs/${id}`, memberLeaving)
+            .put(`http://localhost:5000/removeMember/${id}`, memberLeaving)
             .then(() => {
                 setUpdate(!update)
             })
